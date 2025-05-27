@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FitnessApp</string>
+    <string name="hello">FitnessApp</string>
+    <string name="welcome">Welcome</string>
+    <string name="intro_message">Sign in or create a new Account</string>
+    <string name="back_button">Back Button</string>
+    <string name="create_new_account">Create a New Account</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="email_address">Email  Address</string>
+    <string name="sample_email">siplu@gmail.com</string>
+</resources>
