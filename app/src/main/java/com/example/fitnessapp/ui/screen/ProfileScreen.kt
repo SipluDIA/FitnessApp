@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,24 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     var height by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
     var isSubmitting by remember { mutableStateOf(false) } //To disable button
+    var isLoading by remember { mutableStateOf(true) }
+
+    // Fetch profile info on first composition
+    LaunchedEffect(userId) {
+        isLoading = true
+        NetworkManager.readProfile(userId) { success, n, g, a, w, h ->
+            if (success) {
+                name = n
+                gender = g
+                age = a
+                weight = w
+                height = h
+            } else {
+                message = n // n contains error message
+            }
+            isLoading = false
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -87,20 +106,35 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
                 label = { Text(" Your Height") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
-            // Button to add student data
-            Button(
-                onClick = {
 
-                },
-                modifier = Modifier.padding(16.dp),
-                enabled = !isSubmitting
-            ) {
-                if (isSubmitting) {
-                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(20.dp), strokeWidth = 3.dp)
-                } else {
-                    Text("Profile Updated")
+            if (isLoading) {
+                CircularProgressIndicator()
+            } else {
+                Button(
+                    onClick = {
+                        isSubmitting = true
+                        NetworkManager.updateProfile(
+                            userId = userid,
+                            name = name,
+                            gender = gender,
+                            age = age.toIntOrNull() ?: 0,
+                            weight = weight.toFloatOrNull() ?: 0f,
+                            height = height.toFloatOrNull() ?: 0f
+                        ) { success, msg ->
+                            message = msg
+                            isSubmitting = false
+                        }
+                    },
+                    modifier = Modifier.padding(16.dp),
+                    enabled = !isSubmitting && !isLoading
+                ) {
+                    if (isSubmitting) {
+                        CircularProgressIndicator(color = Color.White, modifier = Modifier.size(20.dp), strokeWidth = 3.dp)
+                    } else {
+                        Text("Update Profile")
+                    }
+
                 }
-
             }
             // Display result message
             Text(message, modifier = Modifier.padding(8.dp))

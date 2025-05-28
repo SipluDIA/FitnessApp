@@ -88,4 +88,61 @@ object NetworkManager {
         )
         requestQueue.add(request)
     }
+    fun updateProfile(
+        userId: Int,
+        name: String,
+        gender: String,
+        age: Int,
+        weight: Float,
+        height: Float,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val url = "$BASE_URL/update_profile.php"
+        val params = JSONObject().apply {
+            put("userId", userId)
+            put("name", name)
+            put("gender", gender)
+            put("age", age)
+            put("weight", weight)
+            put("height", height)
+        }
+        val request = JsonObjectRequest(Request.Method.POST, url, params,
+            { response ->
+                val success = response.optBoolean("success", false)
+                val message = response.optString("message", "")
+                callback(success, message)
+            },
+            { error ->
+                callback(false, error.localizedMessage ?: "Unknown error")
+            }
+        )
+        requestQueue.add(request)
+    }
+    fun readProfile(userId: Int, callback: (Boolean, String, String, String, String, String) -> Unit) {
+        val url = "$BASE_URL/read_profile.php"
+        val params = JSONObject().apply {
+            put("userId", userId)
+        }
+        val request = JsonObjectRequest(Request.Method.POST, url, params,
+            { response ->
+                val success = response.optBoolean("success", false)
+                if (success) {
+                    val user = response.optJSONObject("user")
+                    val name = user?.optString("username", "") ?: ""
+                    val gender = user?.optString("gender", "") ?: ""
+                    val age = user?.optString("age", "") ?: ""
+                    val weight = user?.optString("weight", "") ?: ""
+                    val height = user?.optString("height", "") ?: ""
+                    callback(true, name, gender, age, weight, height)
+                } else {
+                    val message = response.optString("message", "Failed to load profile.")
+                    callback(false, message, "", "", "", "")
+                }
+            },
+            { error ->
+                callback(false, error.localizedMessage ?: "Unknown error", "", "", "", "")
+            }
+        )
+        requestQueue.add(request)
+    }
 }
