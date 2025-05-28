@@ -1,4 +1,4 @@
-package com.example.fitnessapp
+package com.example.fitnessapp.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.fitnessapp.network.NetworkManager
 
 @Composable
 fun SignUpScreen(
@@ -51,7 +52,10 @@ fun SignUpScreen(
         Button(onClick = {
             NetworkManager.signUp(username, email, password) { success, message ->
                 if (success) {
-                    onSignUpSuccess(0, username) // Replace 0 with actual userId if available from API
+                    onSignUpSuccess(
+                        0,
+                        username
+                    ) // Replace 0 with actual userId if available from API
                 } else {
                     errorMessage = message
                 }

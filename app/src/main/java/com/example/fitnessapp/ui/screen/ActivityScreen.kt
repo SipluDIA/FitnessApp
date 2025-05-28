@@ -1,4 +1,4 @@
-package com.example.fitnessapp
+package com.example.fitnessapp.ui.screen
 
 import android.Manifest
 import android.app.Activity
@@ -14,7 +14,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -23,8 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.fitnessapp.NetworkManager
-import org.json.JSONObject
+import com.example.fitnessapp.network.NetworkManager
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

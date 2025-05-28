@@ -1,4 +1,4 @@
-package com.example.fitnessapp
+package com.example.fitnessapp.network
 
 import android.content.Context
 import com.android.volley.Request
