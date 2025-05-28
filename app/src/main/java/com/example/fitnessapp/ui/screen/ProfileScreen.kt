@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.volley.RequestQueue
+import com.example.fitnessapp.network.NetworkManager
 
 
 @OptIn(ExperimentalMaterial3Api::class)
