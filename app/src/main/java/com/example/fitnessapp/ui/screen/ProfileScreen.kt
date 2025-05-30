@@ -1,9 +1,13 @@
 package com.example.fitnessapp.ui.screen
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,11 +23,24 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.fitnessapp.R
 import com.android.volley.RequestQueue
 import com.example.fitnessapp.network.NetworkManager
-
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import android.net.Uri
+import androidx.compose.foundation.background
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.draw.clip
+import coil3.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,6 +54,15 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     var message by remember { mutableStateOf("") }
     var isSubmitting by remember { mutableStateOf(false) } //To disable button
     var isLoading by remember { mutableStateOf(true) }
+    var profilePicUri by remember { mutableStateOf<Uri?>(null) }
+    val context = LocalContext.current
+    val defaultPic = painterResource(id = R.drawable.default_profile) // Add a default_profile.png to res/drawable
+
+    // Image picker launcher
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        profilePicUri = uri
+        // TODO: Upload the image to server here if needed
+    }
 
     // Fetch profile info on first composition
     LaunchedEffect(userId) {
@@ -58,8 +84,8 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Update Profile", color = Color.White) },
-                colors = androidx.compose.material3.TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.DarkGray),
+                title = { Text("Update Profile", color = Color.Black) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                 navigationIcon = {  // Add a back button
                     Button(onClick = { navController.popBackStack() }) {
                         Text("Back")
@@ -76,6 +102,30 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Profile picture
+            Box(modifier = Modifier.size(120.dp)) {
+                Image(
+                    painter = if (profilePicUri != null) rememberAsyncImagePainter(profilePicUri) else defaultPic,
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(CircleShape)
+                        .clickable { launcher.launch("image/*") },
+                    contentScale = ContentScale.Crop
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(Color.Gray.copy(alpha = 0.7f))
+                        .clickable { launcher.launch("image/*") },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(Icons.Default.AddCircle, contentDescription = "Change Photo", tint = Color.White)
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
             // Text Fields for student information
             TextField(
                 value = name,
@@ -83,28 +133,45 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
                 label = { Text("Name") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
-            TextField(
-                value = gender,
-                onValueChange = { gender = it },
-                label = { Text("Gender") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
+            // Gender selection with checkboxes
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Gender:", modifier = Modifier.padding(end = 8.dp))
+                val isMale = gender == "Male"
+                val isFemale = gender == "Female"
+                Checkbox(
+                    checked = isMale,
+                    onCheckedChange = { checked ->
+                        if (checked) gender = "Male" else if (isFemale) gender = ""
+                    }
+                )
+                Text("Male", modifier = Modifier.padding(end = 16.dp))
+                Checkbox(
+                    checked = isFemale,
+                    onCheckedChange = { checked ->
+                        if (checked) gender = "Female" else if (isMale) gender = ""
+                    }
+                )
+                Text("Female")
+            }
             TextField(
                 value = age,
                 onValueChange = { age = it },
-                label = { Text("Your Age") },
+                label = { Text("Your Age (Years)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
                 value = weight,
                 onValueChange = { weight = it },
-                label = { Text("Your Weight") },
+                label = { Text("Your Weight (Kg)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
                 value = height,
                 onValueChange = { height = it },
-                label = { Text(" Your Height") },
+                label = { Text(" Your Height (CM)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
 
