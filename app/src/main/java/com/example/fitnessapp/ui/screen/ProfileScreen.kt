@@ -55,25 +55,26 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     var isSubmitting by remember { mutableStateOf(false) } //To disable button
     var isLoading by remember { mutableStateOf(true) }
     var profilePicUri by remember { mutableStateOf<Uri?>(null) }
+    var profileImageUrl by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
     val defaultPic = painterResource(id = R.drawable.default_profile) // Add a default_profile.png to res/drawable
 
     // Image picker launcher
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        profilePicUri = uri
-        // TODO: Upload the image to server here if needed
+        onImagePicked(uri)
     }
 
     // Fetch profile info on first composition
     LaunchedEffect(userId) {
         isLoading = true
-        NetworkManager.readProfile(userId) { success, n, g, a, w, h ->
+        NetworkManager.readProfile(userId) { success, n, g, a, w, h, imgUrl ->
             if (success) {
                 name = n
                 gender = g
                 age = a
                 weight = w
                 height = h
+                profileImageUrl = imgUrl
             } else {
                 message = n // n contains error message
             }
@@ -104,8 +105,13 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
         ) {
             // Profile picture
             Box(modifier = Modifier.size(120.dp)) {
+                val painter = when {
+                    profilePicUri != null -> rememberAsyncImagePainter(profilePicUri)
+                    !profileImageUrl.isNullOrEmpty() -> rememberAsyncImagePainter(profileImageUrl)
+                    else -> defaultPic
+                }
                 Image(
-                    painter = if (profilePicUri != null) rememberAsyncImagePainter(profilePicUri) else defaultPic,
+                    painter = painter,
                     contentDescription = "Profile Picture",
                     modifier = Modifier
                         .size(120.dp)
@@ -208,4 +214,8 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
             Text(message, modifier = Modifier.padding(8.dp))
         }
     }
+}
+
+fun onImagePicked(uri: Uri?) {
+
 }

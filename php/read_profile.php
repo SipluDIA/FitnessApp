@@ -13,7 +13,7 @@ if (!$userId) {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT id, username, gender, age, weight, height FROM users WHERE id = :userId");
+    $stmt = $pdo->prepare("SELECT id, username, gender, age, weight, height, profile_image_url FROM users WHERE id = :userId");
     $stmt->execute([':userId' => $userId]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($user) {
