@@ -68,13 +68,19 @@ fun DashboardScreen(userId: Int, userName: String, navController: NavHostControl
                 onClick = { navController.navigate("profile/$userId/$userName") }, // Navigate to All
                 modifier = Modifier.padding(8.dp)
             ) {
-                Text("View All Students")
+                Text("Set Your Goal")
             }
-            Button( // New button for viewing students by course.
+            Button(
+                onClick = { navController.navigate("activity/$userId/$userName") },  // Navigate with a default course
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text("Record Activity")
+            }
+            Button(
                 onClick = { navController.navigate("profile/$userId/$userName") },  // Navigate with a default course
                 modifier = Modifier.padding(8.dp)
             ) {
-                Text("View Students in Your Course")
+                Text("View Progress")
             }
         }
     }

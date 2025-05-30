@@ -9,9 +9,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.fitnessapp.network.NetworkManager
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,11 +36,9 @@ fun Context.findActivity(): Activity = when (this) {
     else -> throw IllegalStateException("Activity not found")
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun ActivityScreen(
-    userId: Int,
-    onBack: () -> Unit
-) {
+fun ActivityScreen(navController: NavHostController, userId: Int, userName: String) {
     val context = LocalContext.current
     val activity = context.findActivity()
     // Permission state
@@ -152,7 +153,7 @@ fun ActivityScreen(
                         endTime = formatter.format(endTime!!)
                     ) { success, message ->
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                        if (success) onBack()
+
                     }
                 }
             }, enabled = startTime != null) { Text("Save") }

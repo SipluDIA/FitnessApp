@@ -1,17 +1,21 @@
 package com.example.fitnessapp.navigation
 
 import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.fitnessapp.ui.screen.ActivityScreen
 import com.example.fitnessapp.ui.screen.DashboardScreen
 import com.example.fitnessapp.ui.screen.LoginScreen
 import com.example.fitnessapp.ui.screen.ProfileUpdate
 import com.example.fitnessapp.ui.screen.SignUpScreen
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun FitnessApp() {
     val navController = rememberNavController()
@@ -56,6 +60,18 @@ fun FitnessApp() {
             val id = backStackEntry.arguments!!.getInt("userId")
             val name = backStackEntry.arguments!!.getString("userName")!!
             DashboardScreen(userId = id, userName = name, navController = navController)
+        }
+        composable(
+            route = "activity/{userId}/{userName}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+                navArgument("userName") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getInt("userId")
+            val name = backStackEntry.arguments!!.getString("userName")!!
+
+            ActivityScreen(userId = id, userName = name, navController = navController)
         }
 
     }

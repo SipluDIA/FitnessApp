@@ -57,11 +57,21 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     var profilePicUri by remember { mutableStateOf<Uri?>(null) }
     var profileImageUrl by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
-    val defaultPic = painterResource(id = R.drawable.default_profile) // Add a default_profile.png to res/drawable
+    val defaultPic = painterResource(id = R.drawable.default_profile)
 
     // Image picker launcher
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        onImagePicked(uri)
+        if (uri != null) {
+            profilePicUri = uri
+            NetworkManager.uploadProfileImage(userId, uri, context) { success, imageUrl ->
+                if (success && !imageUrl.isNullOrEmpty()) {
+                    profileImageUrl = imageUrl
+                    message = "Profile image updated."
+                } else {
+                    message = imageUrl ?: "Image upload failed."
+                }
+            }
+        }
     }
 
     // Fetch profile info on first composition
@@ -217,5 +227,20 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
 }
 
 fun onImagePicked(uri: Uri?) {
-
+    // This function should be implemented in the composable scope, not as a top-level function.
+    // For Compose, move this logic inside the composable and call NetworkManager.uploadProfileImage as shown below:
+    //
+    // if (uri != null) {
+    //     profilePicUri = uri
+    //     NetworkManager.uploadProfileImage(userId, uri, context) { success, imageUrl ->
+    //         if (success && !imageUrl.isNullOrEmpty()) {
+    //             profileImageUrl = imageUrl
+    //             message = "Profile image updated."
+    //         } else {
+    //             message = imageUrl ?: "Image upload failed."
+    //         }
+    //     }
+    // }
+    //
+    // Remove this top-level function if not used elsewhere.
 }
