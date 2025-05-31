@@ -174,4 +174,58 @@ object NetworkManager {
         }
         requestQueue.add(request)
     }
+    fun setOrUpdateGoal(
+        userId: Int,
+        walking: Int,
+        running: Int,
+        cycling: Int,
+        swimming: Int,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val url = "$BASE_URL/goal.php"
+        val params = JSONObject().apply {
+            put("userId", userId)
+            put("walking", walking)
+            put("running", running)
+            put("cycling", cycling)
+            put("swimming", swimming)
+        }
+        val request = JsonObjectRequest(Request.Method.POST, url, params,
+            { response ->
+                val success = response.optBoolean("success", false)
+                val message = response.optString("message", "")
+                callback(success, message)
+            },
+            { error ->
+                callback(false, error.localizedMessage ?: "Unknown error")
+            }
+        )
+        requestQueue.add(request)
+    }
+
+    fun getGoal(
+        userId: Int,
+        callback: (Boolean, Int, Int, Int, Int) -> Unit
+    ) {
+        val url = "$BASE_URL/goal.php?userId=$userId"
+        val request = JsonObjectRequest(Request.Method.GET, url, null,
+            { response ->
+                val success = response.optBoolean("success", false)
+                if (success) {
+                    val goal = response.optJSONObject("goal")
+                    val walking = goal?.optInt("walking", 0) ?: 0
+                    val running = goal?.optInt("running", 0) ?: 0
+                    val cycling = goal?.optInt("cycling", 0) ?: 0
+                    val swimming = goal?.optInt("swimming", 0) ?: 0
+                    callback(true, walking, running, cycling, swimming)
+                } else {
+                    callback(false, 0, 0, 0, 0)
+                }
+            },
+            { error ->
+                callback(false, 0, 0, 0, 0)
+            }
+        )
+        requestQueue.add(request)
+    }
 }

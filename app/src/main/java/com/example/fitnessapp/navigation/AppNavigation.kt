@@ -70,11 +70,11 @@ fun FitnessApp() {
         composable(
             route = "goal/{userId}",
             arguments = listOf(
-                navArgument("userId") { type = NavType.IntType },
+                navArgument("userId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
-            YourGoal(userId = id,navController = navController)
+            YourGoal(navController = navController, userId = id)
         }
         composable(
             route = "progress/{userId}",

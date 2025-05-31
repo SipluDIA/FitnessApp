@@ -16,12 +16,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -36,6 +41,7 @@ fun Context.findActivity(): Activity = when (this) {
     else -> throw IllegalStateException("Activity not found")
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun ActivityScreen(navController: NavHostController, userId: Int) {
@@ -79,6 +85,7 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                     stepCount = (total - initialCount).toInt()
                 }
             }
+
             override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         }
     }
@@ -93,70 +100,89 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
 
     val formatter = remember { DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text("Select Activity", style = MaterialTheme.typography.titleLarge)
-        Spacer(Modifier.height(8.dp))
-        Row {
-            OutlinedButton(
-                onClick = { activityType = "Walking" },
-                enabled = activityType != "Walking"
-            ) { Text("Walking") }
-            Spacer(Modifier.width(8.dp))
-            OutlinedButton(
-                onClick = { activityType = "Running" },
-                enabled = activityType != "Running"
-            ) { Text("Running") }
-        }
-        Spacer(Modifier.height(16.dp))
-        Text("Count: $stepCount", style = MaterialTheme.typography.bodyLarge)
-        Spacer(Modifier.height(16.dp))
-        Row {
-            Button(onClick = {
-                if (hasPermission && stepSensor != null) {
-                    initialCount = lastTotalCount
-                    startTime = LocalDateTime.now()
-                    isTracking = true
-                } else {
-                    Toast.makeText(context, "Permission required or sensor unavailable", Toast.LENGTH_SHORT).show()
-                }
-            }, enabled = !isTracking) { Text("Start") }
-            Spacer(Modifier.width(8.dp))
-            Button(onClick = {
-                if (isTracking) {
-                    // Pause
-                    isTracking = false
-                } else {
-                    // Resume
-                    initialCount = lastTotalCount - stepCount
-                    isTracking = true
-                }
-            }, enabled = startTime != null) {
-                Text(if (isTracking) "Pause" else "Resume")
-            }
-            Spacer(Modifier.width(8.dp))
-            Button(onClick = {
-                if (startTime != null) {
-                    isTracking = false
-                    endTime = LocalDateTime.now()
-                    // Save activity
-                    NetworkManager.saveActivity(
-                        userId = userId,
-                        activityType = activityType,
-                        stepCount = stepCount,
-                        startTime = formatter.format(startTime!!),
-                        endTime = formatter.format(endTime!!)
-                    ) { success, message ->
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Record Activity", color = Color.Black) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                navigationIcon = {  // Add a back button
+                    Button(onClick = { navController.popBackStack() }) {
+                        Text("Back")
                     }
                 }
-            }, enabled = startTime != null) { Text("Save") }
+            )
+        }
+    ) { paddingValues ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text("Select Activity", style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.height(8.dp))
+            Row {
+                OutlinedButton(
+                    onClick = { activityType = "Walking" },
+                    enabled = activityType != "Walking"
+                ) { Text("Walking") }
+                Spacer(Modifier.width(8.dp))
+                OutlinedButton(
+                    onClick = { activityType = "Running" },
+                    enabled = activityType != "Running"
+                ) { Text("Running") }
+            }
+            Spacer(Modifier.height(16.dp))
+            Text("Count: $stepCount", style = MaterialTheme.typography.bodyLarge)
+            Spacer(Modifier.height(16.dp))
+            Row {
+                Button(onClick = {
+                    if (hasPermission && stepSensor != null) {
+                        initialCount = lastTotalCount
+                        startTime = LocalDateTime.now()
+                        isTracking = true
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Permission required or sensor unavailable",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }, enabled = !isTracking) { Text("Start") }
+                Spacer(Modifier.width(8.dp))
+                Button(onClick = {
+                    if (isTracking) {
+                        // Pause
+                        isTracking = false
+                    } else {
+                        // Resume
+                        initialCount = lastTotalCount - stepCount
+                        isTracking = true
+                    }
+                }, enabled = startTime != null) {
+                    Text(if (isTracking) "Pause" else "Resume")
+                }
+                Spacer(Modifier.width(8.dp))
+                Button(onClick = {
+                    if (startTime != null) {
+                        isTracking = false
+                        endTime = LocalDateTime.now()
+                        // Save activity
+                        NetworkManager.saveActivity(
+                            userId = userId,
+                            activityType = activityType,
+                            stepCount = stepCount,
+                            startTime = formatter.format(startTime!!),
+                            endTime = formatter.format(endTime!!)
+                        ) { success, message ->
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                }, enabled = startTime != null) { Text("Save") }
+            }
         }
     }
 }
