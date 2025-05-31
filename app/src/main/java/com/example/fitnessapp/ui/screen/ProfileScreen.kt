@@ -34,6 +34,7 @@ import com.example.fitnessapp.network.NetworkManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
@@ -44,9 +45,8 @@ import coil3.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileUpdate(navController: NavHostController, userId: Int, userName: String) {
-    var userid by remember { mutableIntStateOf(userId) }
-    var name by remember { mutableStateOf(userName) }
+fun ProfileUpdate(userId: Int, navController: NavHostController) {
+    var name by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
@@ -57,21 +57,11 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
     var profilePicUri by remember { mutableStateOf<Uri?>(null) }
     var profileImageUrl by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
-    val defaultPic = painterResource(id = R.drawable.default_profile)
+    val defaultPic = painterResource(id = R.drawable.default_profile) // Add a default_profile.png to res/drawable
 
     // Image picker launcher
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            profilePicUri = uri
-            NetworkManager.uploadProfileImage(userId, uri, context) { success, imageUrl ->
-                if (success && !imageUrl.isNullOrEmpty()) {
-                    profileImageUrl = imageUrl
-                    message = "Profile image updated."
-                } else {
-                    message = imageUrl ?: "Image upload failed."
-                }
-            }
-        }
+        onImagePicked(uri)
     }
 
     // Fetch profile info on first composition
@@ -115,9 +105,10 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
         ) {
             // Profile picture
             Box(modifier = Modifier.size(120.dp)) {
+                Log.d("ProfileScreen", "Profile image URL: $profileImageUrl")
                 val painter = when {
                     profilePicUri != null -> rememberAsyncImagePainter(profilePicUri)
-                    !profileImageUrl.isNullOrEmpty() -> rememberAsyncImagePainter(profileImageUrl)
+                    profileImageUrl != null && profileImageUrl!!.isNotBlank() -> rememberAsyncImagePainter(profileImageUrl)
                     else -> defaultPic
                 }
                 Image(
@@ -198,7 +189,7 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
                     onClick = {
                         isSubmitting = true
                         NetworkManager.updateProfile(
-                            userId = userid,
+                            userId = userId,
                             name = name,
                             gender = gender,
                             age = age.toIntOrNull() ?: 0,
@@ -224,4 +215,8 @@ fun ProfileUpdate(navController: NavHostController, userId: Int, userName: Strin
             Text(message, modifier = Modifier.padding(8.dp))
         }
     }
+}
+
+fun onImagePicked(uri: Uri?) {
+
 }

@@ -14,6 +14,8 @@ import com.example.fitnessapp.ui.screen.DashboardScreen
 import com.example.fitnessapp.ui.screen.LoginScreen
 import com.example.fitnessapp.ui.screen.ProfileUpdate
 import com.example.fitnessapp.ui.screen.SignUpScreen
+import com.example.fitnessapp.ui.screen.ViewProgress
+import com.example.fitnessapp.ui.screen.YourGoal
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
@@ -23,55 +25,65 @@ fun FitnessApp() {
         composable("login") {
             LoginScreen(
                 onNavigateToSignUp = { navController.navigate("signup") },
-                onLoginSuccess = { userId, userName ->
-                    // Navigate to dashboard, pass ID & encoded username
-                    val encodedName = Uri.encode(userName)
-                    navController.navigate("dashboard/$userId/$encodedName")
+                onLoginSuccess = { userId, _ ->
+                    // Navigate to dashboard with userId
+                    navController.navigate("dashboard/$userId")
                 }
             )
         }
         composable("signup") {
             SignUpScreen(
                 onNavigateToLogin = { navController.popBackStack() },
-                onSignUpSuccess = { userId, userName ->
-                    val encodedName = Uri.encode(userName)
-                    navController.navigate("dashboard/$userId/$encodedName")
+                onSignUpSuccess = { userId, _ ->
+                    // Navigate to dashboard with userId
+                    navController.navigate("dashboard/$userId")
                 }
             )
         }
         composable(
-            route = "profile/{userId}/{userName}",
+            route = "profile/{userId}",
             arguments = listOf(
-                navArgument("userId") { type = NavType.IntType },
-                navArgument("userName") { type = NavType.StringType }
+                navArgument("userId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
-            val name = backStackEntry.arguments!!.getString("userName")!!
-            ProfileUpdate(userId = id, userName = name, navController = navController)
+            ProfileUpdate(userId = id, navController = navController)
         }
         composable(
-            route = "dashboard/{userId}/{userName}",
+            route = "dashboard/{userId}",
             arguments = listOf(
-                navArgument("userId") { type = NavType.IntType },
-                navArgument("userName") { type = NavType.StringType }
+                navArgument("userId") { type = NavType.IntType }
             )
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
-            val name = backStackEntry.arguments!!.getString("userName")!!
-            DashboardScreen(userId = id, userName = name, navController = navController)
+            DashboardScreen(userId = id, navController = navController)
         }
         composable(
-            route = "activity/{userId}/{userName}",
+            route = "activity/{userId}",
             arguments = listOf(
                 navArgument("userId") { type = NavType.IntType },
-                navArgument("userName") { type = NavType.StringType }
             )
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
-            val name = backStackEntry.arguments!!.getString("userName")!!
-
-            ActivityScreen(userId = id, userName = name, navController = navController)
+            ActivityScreen(userId = id,navController = navController)
+        }
+        composable(
+            route = "goal/{userId}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getInt("userId")
+            YourGoal(userId = id,navController = navController)
+        }
+        composable(
+            route = "progress/{userId}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getInt("userId")
+            ViewProgress(userId = id,navController = navController)
         }
 
     }

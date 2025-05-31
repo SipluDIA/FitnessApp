@@ -38,7 +38,7 @@ fun Context.findActivity(): Activity = when (this) {
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun ActivityScreen(navController: NavHostController, userId: Int, userName: String) {
+fun ActivityScreen(navController: NavHostController, userId: Int) {
     val context = LocalContext.current
     val activity = context.findActivity()
     // Permission state

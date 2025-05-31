@@ -12,6 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import android.util.Log
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,8 +32,26 @@ import coil3.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardScreen(userId: Int, userName: String, navController: NavHostController, profilePicUri: Uri? = null) {
+fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri: Uri? = null) {
+    var userName by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(true) }
+    var profileImageUrl by remember { mutableStateOf<String?>(null) }
     val defaultPic = painterResource(id = R.drawable.default_profile)
+
+    // Fetch user info on first composition
+    LaunchedEffect(userId) {
+        isLoading = true
+        com.example.fitnessapp.network.NetworkManager.readProfile(userId) { success, n, _, _, _, _, imgUrl ->
+            if (success) {
+                userName = n
+                profileImageUrl = imgUrl
+            } else {
+                userName = "Unknown"
+            }
+            isLoading = false
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Fitness App", color = Color.Black) },
@@ -38,14 +62,18 @@ fun DashboardScreen(userId: Int, userName: String, navController: NavHostControl
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues) // Use paddingValues from Scaffold
+                .padding(paddingValues)
                 .wrapContentSize(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally, // Center items horizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             // Profile picture before welcome
             Image(
-                painter = if (profilePicUri != null) rememberAsyncImagePainter(profilePicUri) else defaultPic,
+                painter = when {
+                    profilePicUri != null -> rememberAsyncImagePainter(profilePicUri)
+                    profileImageUrl != null && profileImageUrl!!.isNotBlank() -> rememberAsyncImagePainter(profileImageUrl)
+                    else -> defaultPic
+                },
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(120.dp)
@@ -59,25 +87,25 @@ fun DashboardScreen(userId: Int, userName: String, navController: NavHostControl
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate("profile/$userId/$userName") },
+                onClick = { navController.navigate("profile/$userId") },
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("Your Profile")
             }
             Button(
-                onClick = { navController.navigate("profile/$userId/$userName") }, // Navigate to All
+                onClick = { navController.navigate("goal/$userId") }, // Navigate to All
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("Set Your Goal")
             }
-            Button(
-                onClick = { navController.navigate("activity/$userId/$userName") },  // Navigate with a default course
+            Button( // New button for viewing students by course.
+                onClick = { navController.navigate("activity/$userId") },  // Navigate with a default course
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("Record Activity")
             }
-            Button(
-                onClick = { navController.navigate("profile/$userId/$userName") },  // Navigate with a default course
+            Button( // New button for viewing students by course.
+                onClick = { navController.navigate("progress/$userId") },  // Navigate with a default course
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text("View Progress")

@@ -17,7 +17,9 @@ $filename = uniqid() . '_' . basename($_FILES['profile_image']['name']);
 $targetFile = $targetDir . $filename;
 
 if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $targetFile)) {
-    $imageUrl = $targetFile;
+    // Add your BASE_URL here, e.g., https://yourdomain.com/
+    $baseUrl = 'https://dreamarray.com/api/';
+    $imageUrl = $baseUrl . $targetFile;
     // Update user profile_image_url in DB
     $stmt = $pdo->prepare('UPDATE users SET profile_image_url = :url WHERE id = :userId');
     $stmt->execute([':url' => $imageUrl, ':userId' => $userId]);
