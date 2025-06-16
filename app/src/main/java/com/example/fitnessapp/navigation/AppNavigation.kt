@@ -9,8 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.fitnessapp.ui.screen.ActivityReport
 import com.example.fitnessapp.ui.screen.ActivityScreen
 import com.example.fitnessapp.ui.screen.DashboardScreen
+import com.example.fitnessapp.ui.screen.GetStartedScreen
 import com.example.fitnessapp.ui.screen.LoginScreen
 import com.example.fitnessapp.ui.screen.ProfileUpdate
 import com.example.fitnessapp.ui.screen.SignUpScreen
@@ -21,7 +23,11 @@ import com.example.fitnessapp.ui.screen.YourGoal
 @Composable
 fun FitnessApp() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login") {
+    NavHost(navController = navController, startDestination = "splash") {
+        composable("splash") {
+            GetStartedScreen(onGetStarted = { navController.navigate("login") })
+        }
+
         composable("login") {
             LoginScreen(
                 onNavigateToSignUp = { navController.navigate("signup") },
@@ -84,6 +90,16 @@ fun FitnessApp() {
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
             ViewProgress(userId = id,navController = navController)
+        }
+
+        composable(
+            route = "report/{userId}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getInt("userId")
+            ActivityReport(userId = id,navController = navController)
         }
 
     }

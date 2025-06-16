@@ -1,0 +1,1161 @@
+kotlin version: 2.0.0
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: C:/Users/user/AndroidStudioProjects/FitnessApp/app/src/main/java/com/example/fitnessapp/ui/screen/DashboardScreen.kt
+The root cause java.lang.RuntimeException was thrown at: org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:50)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException(CodegenUtil.kt:253)
+	at org.jetbrains.kotlin.backend.common.CodegenUtil.reportBackendException$default(CodegenUtil.kt:236)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:65)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:52)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(performByIrFile.kt:38)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:29)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:16)
+	at org.jetbrains.kotlin.backend.common.phaser.NamedCompilerPhase.phaseBody(CompilerPhase.kt:166)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:62)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeCodegen(JvmIrCodegenFactory.kt:371)
+	at org.jetbrains.kotlin.codegen.CodegenFactory.generateModule(CodegenFactory.kt:47)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.generateModuleInFrontendIRMode(JvmIrCodegenFactory.kt:433)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.generateCodeFromIr(jvmCompilerPipeline.kt:241)
+	at org.jetbrains.kotlin.cli.jvm.compiler.pipeline.JvmCompilerPipelineKt.compileModulesUsingFrontendIrAndLightTree(jvmCompilerPipeline.kt:140)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:155)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecute(K2JVMCompiler.kt:50)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:104)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:48)
+	at org.jetbrains.kotlin.cli.common.CLITool.exec(CLITool.kt:101)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:453)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunner.runCompiler(IncrementalJvmCompilerRunner.kt:62)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:506)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:423)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally$lambda$9$compile(IncrementalCompilerRunner.kt:249)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.tryCompileIncrementally(IncrementalCompilerRunner.kt:267)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:120)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:676)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:92)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1661)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.base/java.security.AccessController.doPrivileged(Unknown Source)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+  BLOCK_BODY
+    SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt origin=null
+    SET_FIELD 'FIELD name:lambda-1 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-1123346414
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C67@2645L40:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Text--4IGK_g (text: kotlin.String, modifier: androidx.compose.ui.Modifier?, color: androidx.compose.ui.graphics.Color, fontSize: androidx.compose.ui.unit.TextUnit, fontStyle: androidx.compose.ui.text.font.FontStyle?, fontWeight: androidx.compose.ui.text.font.FontWeight?, fontFamily: androidx.compose.ui.text.font.FontFamily?, letterSpacing: androidx.compose.ui.unit.TextUnit, textDecoration: androidx.compose.ui.text.style.TextDecoration?, textAlign: androidx.compose.ui.text.style.TextAlign?, lineHeight: androidx.compose.ui.unit.TextUnit, overflow: androidx.compose.ui.text.style.TextOverflow, softWrap: kotlin.Boolean, maxLines: kotlin.Int, minLines: kotlin.Int, onTextLayout: kotlin.Function1<androidx.compose.ui.text.TextLayoutResult, kotlin.Unit>?, style: androidx.compose.ui.text.TextStyle?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.TextKt' type=kotlin.Unit origin=null
+                        text: CONST String type=kotlin.String value="Fitness App"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        color: CALL 'public final fun getBlack-0d7_KjU (): androidx.compose.ui.graphics.Color declared in androidx.compose.ui.graphics.Color.Companion' type=androidx.compose.ui.graphics.Color origin=GET_PROPERTY
+                          $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:Companion type:androidx.compose.ui.graphics.Color.Companion visibility:public [final,static]' type=androidx.compose.ui.graphics.Color.Companion origin=null
+                        fontSize: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        fontStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontWeight: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontFamily: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        letterSpacing: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        textDecoration: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        textAlign: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        lineHeight: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        overflow: COMPOSITE type=androidx.compose.ui.text.style.TextOverflow origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.text.style.TextOverflow origin=null
+                            <T>: kotlin.Int
+                            <R>: androidx.compose.ui.text.style.TextOverflow
+                            v: CONST Int type=kotlin.Int value=0
+                        softWrap: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                          CONST Boolean type=kotlin.Boolean value=false
+                        maxLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        minLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        onTextLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        style: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=390
+                        $changed1: CONST Int type=kotlin.Int value=0
+                        $default: CONST Int type=kotlin.Int value=131066
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-2 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=1219244886
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C68@2779L11,68@2732L76,67@2625L197:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun TopAppBar-GHTll3U (title: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>, modifier: androidx.compose.ui.Modifier?, navigationIcon: kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>?, actions: @[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>?, expandedHeight: androidx.compose.ui.unit.Dp, windowInsets: androidx.compose.foundation.layout.WindowInsets?, colors: androidx.compose.material3.TopAppBarColors?, scrollBehavior: androidx.compose.material3.TopAppBarScrollBehavior?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.AppBarKt' type=kotlin.Unit origin=null
+                        title: CALL 'internal final fun <get-lambda-1> (): kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt' type=kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> origin=null
+                          $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt origin=null
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        navigationIcon: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        actions: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        expandedHeight: COMPOSITE type=androidx.compose.ui.unit.Dp origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.Dp origin=null
+                            <T>: kotlin.Float
+                            <R>: androidx.compose.ui.unit.Dp
+                            v: CONST Float type=kotlin.Float value=0.0
+                        windowInsets: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        colors: CALL 'public final fun topAppBarColors-zjMxDiM (containerColor: androidx.compose.ui.graphics.Color, scrolledContainerColor: androidx.compose.ui.graphics.Color, navigationIconContentColor: androidx.compose.ui.graphics.Color, titleContentColor: androidx.compose.ui.graphics.Color, actionIconContentColor: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): androidx.compose.material3.TopAppBarColors declared in androidx.compose.material3.TopAppBarDefaults' type=androidx.compose.material3.TopAppBarColors origin=null
+                          $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material3.TopAppBarDefaults visibility:public [final,static]' type=androidx.compose.material3.TopAppBarDefaults origin=null
+                          containerColor: CALL 'public final fun getPrimaryContainer-0d7_KjU (): androidx.compose.ui.graphics.Color declared in androidx.compose.material3.ColorScheme' type=androidx.compose.ui.graphics.Color origin=GET_PROPERTY
+                            $this: CALL 'public final fun <get-colorScheme> ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): androidx.compose.material3.ColorScheme declared in androidx.compose.material3.MaterialTheme' type=androidx.compose.material3.ColorScheme origin=GET_PROPERTY
+                              $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material3.MaterialTheme visibility:public [final,static]' type=androidx.compose.material3.MaterialTheme origin=null
+                              $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                              $changed: GET_FIELD 'FIELD name:$stable type:kotlin.Int visibility:public [final,static]' type=kotlin.Int origin=null
+                          scrolledContainerColor: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                              <T>: kotlin.Long
+                              <R>: androidx.compose.ui.graphics.Color
+                              v: CONST Long type=kotlin.Long value=0
+                          navigationIconContentColor: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                              <T>: kotlin.Long
+                              <R>: androidx.compose.ui.graphics.Color
+                              v: CONST Long type=kotlin.Long value=0
+                          titleContentColor: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                              <T>: kotlin.Long
+                              <R>: androidx.compose.ui.graphics.Color
+                              v: CONST Long type=kotlin.Long value=0
+                          actionIconContentColor: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                            CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                              <T>: kotlin.Long
+                              <R>: androidx.compose.ui.graphics.Color
+                              v: CONST Long type=kotlin.Long value=0
+                          $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                          $changed: CALL 'public final fun shl (bitCount: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_FIELD 'FIELD name:$stable type:kotlin.Int visibility:public [final,static]' type=kotlin.Int origin=null
+                            bitCount: CONST Int type=kotlin.Int value=15
+                          $default: CONST Int type=kotlin.Int value=30
+                        scrollBehavior: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=6
+                        $default: CONST Int type=kotlin.Int value=190
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-3 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=1822364300
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C83@3410L57:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Icon-ww6aTOc (imageVector: androidx.compose.ui.graphics.vector.ImageVector, contentDescription: kotlin.String?, modifier: androidx.compose.ui.Modifier?, tint: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.IconKt' type=kotlin.Unit origin=null
+                        imageVector: CALL 'public final fun <get-Person> (): androidx.compose.ui.graphics.vector.ImageVector declared in androidx.compose.material.icons.filled.PersonKt' type=androidx.compose.ui.graphics.vector.ImageVector origin=GET_PROPERTY
+                          $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material.icons.Icons.Filled visibility:public [final,static]' type=androidx.compose.material.icons.Icons.Filled origin=null
+                        contentDescription: CONST String type=kotlin.String value="Profile"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        tint: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=48
+                        $default: CONST Int type=kotlin.Int value=12
+                      SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:label type:kotlin.Int visibility:public [final,static]' type=kotlin.Unit origin=EQ
+                        value: GET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:profile type:kotlin.Int visibility:public [static]' type=kotlin.Int origin=null
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-4 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-84966603
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C87@3632L58:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Icon-ww6aTOc (imageVector: androidx.compose.ui.graphics.vector.ImageVector, contentDescription: kotlin.String?, modifier: androidx.compose.ui.Modifier?, tint: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.IconKt' type=kotlin.Unit origin=null
+                        imageVector: CALL 'public final fun <get-AddCircle> (): androidx.compose.ui.graphics.vector.ImageVector declared in androidx.compose.material.icons.filled.AddCircleKt' type=androidx.compose.ui.graphics.vector.ImageVector origin=GET_PROPERTY
+                          $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material.icons.Icons.Filled visibility:public [final,static]' type=androidx.compose.material.icons.Icons.Filled origin=null
+                        contentDescription: CONST String type=kotlin.String value="Goals"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        tint: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=48
+                        $default: CONST Int type=kotlin.Int value=12
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-5 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-1121977004
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C90@3816L60:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Icon-ww6aTOc (imageVector: androidx.compose.ui.graphics.vector.ImageVector, contentDescription: kotlin.String?, modifier: androidx.compose.ui.Modifier?, tint: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.IconKt' type=kotlin.Unit origin=null
+                        imageVector: CALL 'public final fun <get-Favorite> (): androidx.compose.ui.graphics.vector.ImageVector declared in androidx.compose.material.icons.filled.FavoriteKt' type=androidx.compose.ui.graphics.vector.ImageVector origin=GET_PROPERTY
+                          $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material.icons.Icons.Filled visibility:public [final,static]' type=androidx.compose.material.icons.Icons.Filled origin=null
+                        contentDescription: CONST String type=kotlin.String value="Progress"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        tint: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=48
+                        $default: CONST Int type=kotlin.Int value=12
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-6 type:kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=2131190939
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function2<androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C77@3157L62:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=11
+                          arg1: CONST Int type=kotlin.Int value=2
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Icon-ww6aTOc (imageVector: androidx.compose.ui.graphics.vector.ImageVector, contentDescription: kotlin.String?, modifier: androidx.compose.ui.Modifier?, tint: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.IconKt' type=kotlin.Unit origin=null
+                        imageVector: CALL 'public final fun <get-PlayArrow> (): androidx.compose.ui.graphics.vector.ImageVector declared in androidx.compose.material.icons.filled.PlayArrowKt' type=androidx.compose.ui.graphics.vector.ImageVector origin=GET_PROPERTY
+                          $receiver: CALL 'public final fun <get-Default> (): androidx.compose.material.icons.Icons.Filled declared in androidx.compose.material.icons.Icons' type=androidx.compose.material.icons.Icons.Filled origin=GET_PROPERTY
+                            $this: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material.icons.Icons visibility:public [final,static]' type=androidx.compose.material.icons.Icons origin=null
+                        contentDescription: CONST String type=kotlin.String value="activity"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        tint: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=48
+                        $default: CONST Int type=kotlin.Int value=12
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-7 type:@[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-806294725
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $this$Button:androidx.compose.foundation.layout.RowScope, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function3, p2: P2 of kotlin.Function3, p3: P3 of kotlin.Function3): R of kotlin.Function3 [operator] declared in kotlin.Function3
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$this$Button index:0 type:androidx.compose.foundation.layout.RowScope
+              VALUE_PARAMETER name:$composer index:1 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:2 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C127@5350L20:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=81
+                          arg1: CONST Int type=kotlin.Int value=16
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Text--4IGK_g (text: kotlin.String, modifier: androidx.compose.ui.Modifier?, color: androidx.compose.ui.graphics.Color, fontSize: androidx.compose.ui.unit.TextUnit, fontStyle: androidx.compose.ui.text.font.FontStyle?, fontWeight: androidx.compose.ui.text.font.FontWeight?, fontFamily: androidx.compose.ui.text.font.FontFamily?, letterSpacing: androidx.compose.ui.unit.TextUnit, textDecoration: androidx.compose.ui.text.style.TextDecoration?, textAlign: androidx.compose.ui.text.style.TextAlign?, lineHeight: androidx.compose.ui.unit.TextUnit, overflow: androidx.compose.ui.text.style.TextOverflow, softWrap: kotlin.Boolean, maxLines: kotlin.Int, minLines: kotlin.Int, onTextLayout: kotlin.Function1<androidx.compose.ui.text.TextLayoutResult, kotlin.Unit>?, style: androidx.compose.ui.text.TextStyle?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.TextKt' type=kotlin.Unit origin=null
+                        text: CONST String type=kotlin.String value="Your Profile"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        color: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        fontSize: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        fontStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontWeight: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontFamily: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        letterSpacing: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        textDecoration: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        textAlign: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        lineHeight: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        overflow: COMPOSITE type=androidx.compose.ui.text.style.TextOverflow origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.text.style.TextOverflow origin=null
+                            <T>: kotlin.Int
+                            <R>: androidx.compose.ui.text.style.TextOverflow
+                            v: CONST Int type=kotlin.Int value=0
+                        softWrap: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                          CONST Boolean type=kotlin.Boolean value=false
+                        maxLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        minLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        onTextLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        style: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=6
+                        $changed1: CONST Int type=kotlin.Int value=0
+                        $default: CONST Int type=kotlin.Int value=131070
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?, p3:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p3 index:2 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?, p3: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($this$Button: androidx.compose.foundation.layout.RowScope, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $this$Button: TYPE_OP type=androidx.compose.foundation.layout.RowScope origin=IMPLICIT_CAST typeOperand=androidx.compose.foundation.layout.RowScope
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p3: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-8 type:@[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=447585636
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $this$Button:androidx.compose.foundation.layout.RowScope, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function3, p2: P2 of kotlin.Function3, p3: P3 of kotlin.Function3): R of kotlin.Function3 [operator] declared in kotlin.Function3
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$this$Button index:0 type:androidx.compose.foundation.layout.RowScope
+              VALUE_PARAMETER name:$composer index:1 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:2 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C133@5576L21:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=81
+                          arg1: CONST Int type=kotlin.Int value=16
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Text--4IGK_g (text: kotlin.String, modifier: androidx.compose.ui.Modifier?, color: androidx.compose.ui.graphics.Color, fontSize: androidx.compose.ui.unit.TextUnit, fontStyle: androidx.compose.ui.text.font.FontStyle?, fontWeight: androidx.compose.ui.text.font.FontWeight?, fontFamily: androidx.compose.ui.text.font.FontFamily?, letterSpacing: androidx.compose.ui.unit.TextUnit, textDecoration: androidx.compose.ui.text.style.TextDecoration?, textAlign: androidx.compose.ui.text.style.TextAlign?, lineHeight: androidx.compose.ui.unit.TextUnit, overflow: androidx.compose.ui.text.style.TextOverflow, softWrap: kotlin.Boolean, maxLines: kotlin.Int, minLines: kotlin.Int, onTextLayout: kotlin.Function1<androidx.compose.ui.text.TextLayoutResult, kotlin.Unit>?, style: androidx.compose.ui.text.TextStyle?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.TextKt' type=kotlin.Unit origin=null
+                        text: CONST String type=kotlin.String value="Set Your Goal"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        color: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        fontSize: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        fontStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontWeight: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontFamily: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        letterSpacing: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        textDecoration: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        textAlign: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        lineHeight: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        overflow: COMPOSITE type=androidx.compose.ui.text.style.TextOverflow origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.text.style.TextOverflow origin=null
+                            <T>: kotlin.Int
+                            <R>: androidx.compose.ui.text.style.TextOverflow
+                            v: CONST Int type=kotlin.Int value=0
+                        softWrap: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                          CONST Boolean type=kotlin.Boolean value=false
+                        maxLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        minLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        onTextLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        style: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=6
+                        $changed1: CONST Int type=kotlin.Int value=0
+                        $default: CONST Int type=kotlin.Int value=131070
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?, p3:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p3 index:2 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?, p3: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($this$Button: androidx.compose.foundation.layout.RowScope, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $this$Button: TYPE_OP type=androidx.compose.foundation.layout.RowScope origin=IMPLICIT_CAST typeOperand=androidx.compose.foundation.layout.RowScope
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p3: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-9 type:@[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-440451901
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $this$Button:androidx.compose.foundation.layout.RowScope, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function3, p2: P2 of kotlin.Function3, p3: P3 of kotlin.Function3): R of kotlin.Function3 [operator] declared in kotlin.Function3
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$this$Button index:0 type:androidx.compose.foundation.layout.RowScope
+              VALUE_PARAMETER name:$composer index:1 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:2 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C139@5869L23:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=81
+                          arg1: CONST Int type=kotlin.Int value=16
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Text--4IGK_g (text: kotlin.String, modifier: androidx.compose.ui.Modifier?, color: androidx.compose.ui.graphics.Color, fontSize: androidx.compose.ui.unit.TextUnit, fontStyle: androidx.compose.ui.text.font.FontStyle?, fontWeight: androidx.compose.ui.text.font.FontWeight?, fontFamily: androidx.compose.ui.text.font.FontFamily?, letterSpacing: androidx.compose.ui.unit.TextUnit, textDecoration: androidx.compose.ui.text.style.TextDecoration?, textAlign: androidx.compose.ui.text.style.TextAlign?, lineHeight: androidx.compose.ui.unit.TextUnit, overflow: androidx.compose.ui.text.style.TextOverflow, softWrap: kotlin.Boolean, maxLines: kotlin.Int, minLines: kotlin.Int, onTextLayout: kotlin.Function1<androidx.compose.ui.text.TextLayoutResult, kotlin.Unit>?, style: androidx.compose.ui.text.TextStyle?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.TextKt' type=kotlin.Unit origin=null
+                        text: CONST String type=kotlin.String value="Record Activity"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        color: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        fontSize: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        fontStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontWeight: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontFamily: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        letterSpacing: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        textDecoration: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        textAlign: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        lineHeight: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        overflow: COMPOSITE type=androidx.compose.ui.text.style.TextOverflow origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.text.style.TextOverflow origin=null
+                            <T>: kotlin.Int
+                            <R>: androidx.compose.ui.text.style.TextOverflow
+                            v: CONST Int type=kotlin.Int value=0
+                        softWrap: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                          CONST Boolean type=kotlin.Boolean value=false
+                        maxLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        minLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        onTextLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        style: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=6
+                        $changed1: CONST Int type=kotlin.Int value=0
+                        $default: CONST Int type=kotlin.Int value=131070
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?, p3:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p3 index:2 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?, p3: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($this$Button: androidx.compose.foundation.layout.RowScope, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $this$Button: TYPE_OP type=androidx.compose.foundation.layout.RowScope origin=IMPLICIT_CAST typeOperand=androidx.compose.foundation.layout.RowScope
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p3: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+    SET_FIELD 'FIELD name:lambda-10 type:@[ExtensionFunctionType] kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit> visibility:internal [static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+      value: CALL 'public final fun composableLambdaInstance (key: kotlin.Int, tracked: kotlin.Boolean, block: kotlin.Any): androidx.compose.runtime.internal.ComposableLambda declared in androidx.compose.runtime.internal.ComposableLambdaKt' type=androidx.compose.runtime.internal.ComposableLambda origin=null
+        key: CONST Int type=kotlin.Int value=-1328489438
+        tracked: CONST Boolean type=kotlin.Boolean value=false
+        block: BLOCK type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+          CLASS LAMBDA_IMPL CLASS name:<no name provided> modality:FINAL visibility:public/*package*/ superTypes:[kotlin.Any; kotlin.Function3<androidx.compose.foundation.layout.RowScope, androidx.compose.runtime.Composer, kotlin.Int, kotlin.Unit>]
+            $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+            CONSTRUCTOR GENERATED_MEMBER_IN_CALLABLE_REFERENCE visibility:public/*package*/ <> () returnType:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> [primary]
+              BLOCK_BODY
+                DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () [primary] declared in kotlin.Any'
+                BLOCK type=kotlin.Unit origin=null
+            FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $this$Button:androidx.compose.foundation.layout.RowScope, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+              annotations:
+                Composable
+                ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+              overridden:
+                public abstract fun invoke (p1: P1 of kotlin.Function3, p2: P2 of kotlin.Function3, p3: P3 of kotlin.Function3): R of kotlin.Function3 [operator] declared in kotlin.Function3
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER name:$this$Button index:0 type:androidx.compose.foundation.layout.RowScope
+              VALUE_PARAMETER name:$composer index:1 type:androidx.compose.runtime.Composer? [assignable]
+              VALUE_PARAMETER name:$changed index:2 type:kotlin.Int
+              BLOCK_BODY
+                CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+                  composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                  sourceInformation: CONST String type=kotlin.String value="C145@6164L21:DashboardScreen.kt#btb9y6"
+                WHEN type=kotlin.Unit origin=IF
+                  BRANCH
+                    if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                      arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+                          arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                            $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                            other: CONST Int type=kotlin.Int value=81
+                          arg1: CONST Int type=kotlin.Int value=16
+                      arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+                        $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+                          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                    then: BLOCK type=kotlin.Unit origin=null
+                      CALL 'public final fun Text--4IGK_g (text: kotlin.String, modifier: androidx.compose.ui.Modifier?, color: androidx.compose.ui.graphics.Color, fontSize: androidx.compose.ui.unit.TextUnit, fontStyle: androidx.compose.ui.text.font.FontStyle?, fontWeight: androidx.compose.ui.text.font.FontWeight?, fontFamily: androidx.compose.ui.text.font.FontFamily?, letterSpacing: androidx.compose.ui.unit.TextUnit, textDecoration: androidx.compose.ui.text.style.TextDecoration?, textAlign: androidx.compose.ui.text.style.TextAlign?, lineHeight: androidx.compose.ui.unit.TextUnit, overflow: androidx.compose.ui.text.style.TextOverflow, softWrap: kotlin.Boolean, maxLines: kotlin.Int, minLines: kotlin.Int, onTextLayout: kotlin.Function1<androidx.compose.ui.text.TextLayoutResult, kotlin.Unit>?, style: androidx.compose.ui.text.TextStyle?, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $changed1: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.TextKt' type=kotlin.Unit origin=null
+                        text: CONST String type=kotlin.String value="View Progress"
+                        modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        color: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.graphics.Color
+                            v: CONST Long type=kotlin.Long value=0
+                        fontSize: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        fontStyle: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontWeight: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        fontFamily: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        letterSpacing: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        textDecoration: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        textAlign: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        lineHeight: COMPOSITE type=androidx.compose.ui.unit.TextUnit origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.unit.TextUnit origin=null
+                            <T>: kotlin.Long
+                            <R>: androidx.compose.ui.unit.TextUnit
+                            v: CONST Long type=kotlin.Long value=0
+                        overflow: COMPOSITE type=androidx.compose.ui.text.style.TextOverflow origin=DEFAULT_VALUE
+                          CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.text.style.TextOverflow origin=null
+                            <T>: kotlin.Int
+                            <R>: androidx.compose.ui.text.style.TextOverflow
+                            v: CONST Int type=kotlin.Int value=0
+                        softWrap: COMPOSITE type=kotlin.Boolean origin=DEFAULT_VALUE
+                          CONST Boolean type=kotlin.Boolean value=false
+                        maxLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        minLines: COMPOSITE type=kotlin.Int origin=DEFAULT_VALUE
+                          CONST Int type=kotlin.Int value=0
+                        onTextLayout: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        style: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+                          CONST Null type=kotlin.Nothing? value=null
+                        $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+                        $changed: CONST Int type=kotlin.Int value=6
+                        $changed1: CONST Int type=kotlin.Int value=0
+                        $default: CONST Int type=kotlin.Int value=131070
+                  BRANCH
+                    if: CONST Boolean type=kotlin.Boolean value=true
+                    then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+                      $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]
+            FUN CLASS_STATIC_INITIALIZER name:<clinit> visibility:public/*package*/ modality:FINAL <> () returnType:kotlin.Unit
+              BLOCK_BODY
+                SET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=kotlin.Unit origin=INITIALIZE_FIELD
+                  value: CONSTRUCTOR_CALL 'public/*package*/ constructor <init> () [primary] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+            FUN BRIDGE name:invoke visibility:public modality:OPEN <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, p1:kotlin.Any?, p2:kotlin.Any?, p3:kotlin.Any?) returnType:kotlin.Any?
+              $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+              VALUE_PARAMETER BRIDGE name:p1 index:0 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p2 index:1 type:kotlin.Any?
+              VALUE_PARAMETER BRIDGE name:p3 index:2 type:kotlin.Any?
+              EXPRESSION_BODY
+                RETURN type=kotlin.Nothing from='public open fun invoke (p1: kotlin.Any?, p2: kotlin.Any?, p3: kotlin.Any?): kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>'
+                  CALL 'public final fun invoke ($this$Button: androidx.compose.foundation.layout.RowScope, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int): kotlin.Unit declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>' type=kotlin.Unit origin=BRIDGE_DELEGATION
+                    $this: GET_VAR '<this>: com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+                    $this$Button: TYPE_OP type=androidx.compose.foundation.layout.RowScope origin=IMPLICIT_CAST typeOperand=androidx.compose.foundation.layout.RowScope
+                      GET_VAR 'p1: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $composer: TYPE_OP type=androidx.compose.runtime.Composer origin=IMPLICIT_CAST typeOperand=androidx.compose.runtime.Composer
+                      GET_VAR 'p2: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+                    $changed: TYPE_OP type=kotlin.Int origin=IMPLICIT_CAST typeOperand=kotlin.Int
+                      GET_VAR 'p3: kotlin.Any? declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Any? origin=null
+          GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> visibility:public [final,static]' type=com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided> origin=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:50)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:42)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:385)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:402)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:173)
+	at org.jetbrains.kotlin.backend.jvm.FileCodegen.lower(JvmPhases.kt:41)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt.makeIrFilePhase$lambda$5(PhaseBuilders.kt:114)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:71)
+	at org.jetbrains.kotlin.backend.common.phaser.SimpleNamedCompilerPhase.phaseBody(CompilerPhase.kt:226)
+	at org.jetbrains.kotlin.backend.common.phaser.AbstractNamedCompilerPhase.invoke(CompilerPhase.kt:113)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invokeSequential(performByIrFile.kt:62)
+	... 44 more
+Caused by: java.lang.RuntimeException: Exception while generating code for:
+FUN name:invoke visibility:public modality:FINAL <> ($this:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>, $composer:androidx.compose.runtime.Composer?, $changed:kotlin.Int) returnType:kotlin.Unit
+  annotations:
+    Composable
+    ComposableTarget(applier = "androidx.compose.ui.UiComposable")
+  overridden:
+    public abstract fun invoke (p1: P1 of kotlin.Function2, p2: P2 of kotlin.Function2): R of kotlin.Function2 [operator] declared in kotlin.Function2
+  $this: VALUE_PARAMETER INSTANCE_RECEIVER name:<this> type:com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>
+  VALUE_PARAMETER name:$composer index:0 type:androidx.compose.runtime.Composer? [assignable]
+  VALUE_PARAMETER name:$changed index:1 type:kotlin.Int
+  BLOCK_BODY
+    CALL 'public final fun sourceInformation (composer: androidx.compose.runtime.Composer, sourceInformation: kotlin.String): kotlin.Unit declared in androidx.compose.runtime.ComposerKt' type=kotlin.Unit origin=null
+      composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+      sourceInformation: CONST String type=kotlin.String value="C83@3410L57:DashboardScreen.kt#btb9y6"
+    WHEN type=kotlin.Unit origin=IF
+      BRANCH
+        if: CALL 'public final fun OROR (arg0: kotlin.Boolean, arg1: kotlin.Boolean): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+          arg0: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public final fun EQEQ (arg0: kotlin.Any?, arg1: kotlin.Any?): kotlin.Boolean declared in kotlin.internal.ir' type=kotlin.Boolean origin=null
+              arg0: CALL 'public final fun and (other: kotlin.Int): kotlin.Int [infix] declared in kotlin.Int' type=kotlin.Int origin=null
+                $this: GET_VAR '$changed: kotlin.Int declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=kotlin.Int origin=null
+                other: CONST Int type=kotlin.Int value=11
+              arg1: CONST Int type=kotlin.Int value=2
+          arg1: CALL 'public final fun not (): kotlin.Boolean [operator] declared in kotlin.Boolean' type=kotlin.Boolean origin=null
+            $this: CALL 'public abstract fun <get-skipping> (): kotlin.Boolean declared in androidx.compose.runtime.Composer' type=kotlin.Boolean origin=null
+              $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+        then: BLOCK type=kotlin.Unit origin=null
+          CALL 'public final fun Icon-ww6aTOc (imageVector: androidx.compose.ui.graphics.vector.ImageVector, contentDescription: kotlin.String?, modifier: androidx.compose.ui.Modifier?, tint: androidx.compose.ui.graphics.Color, $composer: androidx.compose.runtime.Composer?, $changed: kotlin.Int, $default: kotlin.Int): kotlin.Unit declared in androidx.compose.material3.IconKt' type=kotlin.Unit origin=null
+            imageVector: CALL 'public final fun <get-Person> (): androidx.compose.ui.graphics.vector.ImageVector declared in androidx.compose.material.icons.filled.PersonKt' type=androidx.compose.ui.graphics.vector.ImageVector origin=GET_PROPERTY
+              $receiver: GET_FIELD 'FIELD FIELD_FOR_OBJECT_INSTANCE name:INSTANCE type:androidx.compose.material.icons.Icons.Filled visibility:public [final,static]' type=androidx.compose.material.icons.Icons.Filled origin=null
+            contentDescription: CONST String type=kotlin.String value="Profile"
+            modifier: COMPOSITE type=kotlin.Nothing? origin=DEFAULT_VALUE
+              CONST Null type=kotlin.Nothing? value=null
+            tint: COMPOSITE type=androidx.compose.ui.graphics.Color origin=DEFAULT_VALUE
+              CALL 'public final fun <unsafe-coerce> <T, R> (v: T of kotlin.jvm.internal.<unsafe-coerce>): R of kotlin.jvm.internal.<unsafe-coerce> declared in kotlin.jvm.internal' type=androidx.compose.ui.graphics.Color origin=null
+                <T>: kotlin.Long
+                <R>: androidx.compose.ui.graphics.Color
+                v: CONST Long type=kotlin.Long value=0
+            $composer: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+            $changed: CONST Int type=kotlin.Int value=48
+            $default: CONST Int type=kotlin.Int value=12
+          SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:label type:kotlin.Int visibility:public [final,static]' type=kotlin.Unit origin=EQ
+            value: GET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:profile type:kotlin.Int visibility:public [static]' type=kotlin.Int origin=null
+      BRANCH
+        if: CONST Boolean type=kotlin.Boolean value=true
+        then: CALL 'public abstract fun skipToGroupEnd (): kotlin.Unit declared in androidx.compose.runtime.Composer' type=kotlin.Unit origin=null
+          $this: GET_VAR '$composer: androidx.compose.runtime.Composer? [assignable] declared in com.example.fitnessapp.ui.screen.ComposableSingletons$DashboardScreenKt.<clinit>.<no name provided>.invoke' type=androidx.compose.runtime.Composer? origin=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:50)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate$default(FunctionCodegen.kt:42)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethodNode(ClassCodegen.kt:385)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generateMethod(ClassCodegen.kt:402)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ClassCodegen.generate(ClassCodegen.kt:169)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:994)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitClass(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.declarations.IrClass.accept(IrClass.kt:72)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:573)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:587)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:407)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.gen(ExpressionCodegen.kt:216)
+	at org.jetbrains.kotlin.backend.jvm.codegen.IrCallGenerator.genValueAndPut(IrCallGenerator.kt:48)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall$handleParameter(ExpressionCodegen.kt:610)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:638)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitCall(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrCall.accept(IrCall.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:872)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitSetField(IrElementVisitor.kt:206)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:902)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrSetField.accept(IrSetField.kt:21)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:573)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:578)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:239)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:121)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:46)
+	... 54 more
+Caused by: java.lang.AssertionError: access of const val: SET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:label type:kotlin.Int visibility:public [final,static]' type=kotlin.Unit origin=EQ
+  value: GET_FIELD 'FIELD IR_EXTERNAL_JAVA_DECLARATION_STUB name:profile type:kotlin.Int visibility:public [static]' type=kotlin.Int origin=null
+
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:855)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitFieldAccess(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitSetField(IrElementVisitor.kt:206)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:902)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitSetField(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrSetField.accept(IrSetField.kt:21)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:573)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:587)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitContainerExpression(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.visitors.IrElementVisitor$DefaultImpls.visitBlock(IrElementVisitor.kt:122)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:407)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlock(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrBlock.accept(IrBlock.kt:18)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:1095)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitWhen(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrWhen.accept(IrWhen.kt:24)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitStatementContainer(ExpressionCodegen.kt:573)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:578)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.visitBlockBody(ExpressionCodegen.kt:137)
+	at org.jetbrains.kotlin.ir.expressions.IrBlockBody.accept(IrBlockBody.kt:20)
+	at org.jetbrains.kotlin.backend.jvm.codegen.ExpressionCodegen.generate(ExpressionCodegen.kt:239)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.doGenerate(FunctionCodegen.kt:121)
+	at org.jetbrains.kotlin.backend.jvm.codegen.FunctionCodegen.generate(FunctionCodegen.kt:46)
+	... 87 more
+
+

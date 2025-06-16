@@ -148,6 +148,7 @@ object NetworkManager {
         )
         requestQueue.add(request)
     }
+    /*
     fun uploadProfileImage(userId: Int, imageUri: Uri, context: Context, callback: (Boolean, String?) -> Unit) {
         val url = "$BASE_URL/upload_profile_image.php"
         val request = object : VolleyMultipartRequest(Method.POST, url,
@@ -174,6 +175,8 @@ object NetworkManager {
         }
         requestQueue.add(request)
     }
+    */
+
     fun setOrUpdateGoal(
         userId: Int,
         walking: Int,
@@ -228,4 +231,51 @@ object NetworkManager {
         )
         requestQueue.add(request)
     }
+
+    fun getActivities(userId: Int, callback: (Boolean, Map<String, List<ActivityItem>>, String) -> Unit) {
+        val url = "$BASE_URL/getActivities.php?userId=$userId"
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val success = response.optBoolean("success", false)
+                val message = response.optString("message", "")
+                if (success) {
+                    val activitiesJson = response.optJSONObject("activities")
+                    val result = mutableMapOf<String, List<ActivityItem>>()
+                    if (activitiesJson != null) {
+                        val keys = activitiesJson.keys()
+                        while (keys.hasNext()) {
+                            val type = keys.next()
+                            val arr = activitiesJson.getJSONArray(type)
+                            val list = mutableListOf<ActivityItem>()
+                            for (i in 0 until arr.length()) {
+                                val obj = arr.getJSONObject(i)
+                                list.add(
+                                    ActivityItem(
+                                        stepCount = obj.optInt("step_count", 0),
+                                        startTime = obj.optString("start_time", ""),
+                                        endTime = obj.optString("end_time", "")
+                                    )
+                                )
+                            }
+                            result[type] = list
+                        }
+                    }
+                    callback(true, result, message)
+                } else {
+                    callback(false, emptyMap(), message)
+                }
+            },
+            { error ->
+                callback(false, emptyMap(), error.localizedMessage ?: "Unknown error")
+            }
+        )
+        requestQueue.add(request)
+    }
+
+    data class ActivityItem(
+        val stepCount: Int,
+        val startTime: String,
+        val endTime: String
+    )
 }

@@ -31,17 +31,30 @@ import androidx.navigation.NavHostController
 import com.example.fitnessapp.R
 import com.android.volley.RequestQueue
 import com.example.fitnessapp.network.NetworkManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+
 import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.draw.clip
-import coil3.compose.rememberAsyncImagePainter
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.sp
+
+import com.example.fitnessapp.ui.theme.Black
+import com.example.fitnessapp.ui.theme.GradientEnd
+import com.example.fitnessapp.ui.theme.GradientStart
+
+import com.example.fitnessapp.ui.theme.Grey3
+import com.example.fitnessapp.ui.theme.Grey4
+import com.example.fitnessapp.ui.theme.poppinsFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,12 +70,6 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
     var profilePicUri by remember { mutableStateOf<Uri?>(null) }
     var profileImageUrl by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
-    val defaultPic = painterResource(id = R.drawable.default_profile) // Add a default_profile.png to res/drawable
-
-    // Image picker launcher
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        onImagePicked(uri)
-    }
 
     // Fetch profile info on first composition
     LaunchedEffect(userId) {
@@ -85,7 +92,7 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Update Profile", color = Color.Black) },
+                title = { Text("Complete Profile", color = Color.Black) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                 navigationIcon = {  // Add a back button
                     Button(onClick = { navController.popBackStack() }) {
@@ -98,54 +105,50 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 20.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Profile picture
-            Box(modifier = Modifier.size(120.dp)) {
-                Log.d("ProfileScreen", "Profile image URL: $profileImageUrl")
-                val painter = when {
-                    profilePicUri != null -> rememberAsyncImagePainter(profilePicUri)
-                    profileImageUrl != null && profileImageUrl!!.isNotBlank() -> rememberAsyncImagePainter(profileImageUrl)
-                    else -> defaultPic
-                }
-                Image(
-                    painter = painter,
-                    contentDescription = "Profile Picture",
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(CircleShape)
-                        .clickable { launcher.launch("image/*") },
-                    contentScale = ContentScale.Crop
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(Color.Gray.copy(alpha = 0.7f))
-                        .clickable { launcher.launch("image/*") },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(Icons.Default.AddCircle, contentDescription = "Change Photo", tint = Color.White)
-                }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            // Text Fields for student information
-            TextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text("Name") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_complete_profile),
+                contentDescription = "Complete profile image",
+                contentScale = ContentScale.Inside,
+                modifier = Modifier.height(200.dp)
             )
+            Spacer(modifier = Modifier.height(30.dp))
+            Text(
+                text = "Hello, ${name}",
+                color = Black,
+                fontSize = 20.sp,
+                fontFamily = poppinsFamily,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Let’s complete your profile",
+                color = Black,
+                fontSize = 12.sp,
+                fontFamily = poppinsFamily,
+                fontWeight = FontWeight.Normal
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+
             // Gender selection with checkboxes
             Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(color=Grey4),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Gender:", modifier = Modifier.padding(end = 8.dp))
+                Icon(
+                    painterResource(R.drawable.ic_leading_full_name),
+                    contentDescription = null
+                )
+                Text("Gender:", modifier = Modifier.padding(start = 8.dp, end = 8.dp))
                 val isMale = gender == "Male"
                 val isFemale = gender == "Female"
                 Checkbox(
@@ -153,6 +156,7 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
                     onCheckedChange = { checked ->
                         if (checked) gender = "Male" else if (isFemale) gender = ""
                     }
+
                 )
                 Text("Male", modifier = Modifier.padding(end = 16.dp))
                 Checkbox(
@@ -163,29 +167,136 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
                 )
                 Text("Female")
             }
+
+            Spacer(modifier = Modifier.height(15.dp))
+
             TextField(
+                singleLine = true,
                 value = age,
                 onValueChange = { age = it },
-                label = { Text("Your Age (Years)") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                label = {
+                    Text(
+                        text = "Your Age (Years)",
+                        color = Grey3,
+                        fontSize = 12.sp,
+                        fontFamily = poppinsFamily,
+                        fontWeight = FontWeight.Normal
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        painterResource(R.drawable.ic_leading_full_name),
+                        contentDescription = null
+                    )
+                },
+                shape = RoundedCornerShape(15.dp),
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                )
             )
-            TextField(
-                value = weight,
-                onValueChange = { weight = it },
-                label = { Text("Your Weight (Kg)") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
-            TextField(
-                value = height,
-                onValueChange = { height = it },
-                label = { Text(" Your Height (CM)") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    singleLine = true,
+                    value = weight,
+                    onValueChange = { weight = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    label = {
+                        Text(
+                            text = "Your Weight",
+                            color = Grey3,
+                            fontSize = 14.sp,
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.Normal
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(
+                            painterResource(R.drawable.ic_leading_weight),
+                            contentDescription = null
+                        )
+                    },
+                    shape = RoundedCornerShape(15.dp),
+                    modifier = Modifier.weight(1f),
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                    )
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.ic_button_kg),
+                    contentDescription = "weight",
+                    modifier = Modifier
+                        .height(50.dp)
+                )
+
+            }
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    singleLine = true,
+                    value = height,
+                    onValueChange = { height = it },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    label = {
+                        Text(
+                            text = "Your Height",
+                            color = Grey3,
+                            fontSize = 14.sp,
+                            fontFamily = poppinsFamily,
+                            fontWeight = FontWeight.Normal
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(
+                            painterResource(R.drawable.ic_leading_height),
+                            contentDescription = null
+                        )
+                    },
+                    shape = RoundedCornerShape(15.dp),
+                    modifier = Modifier.weight(1f),
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                    )
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.ic_button_cm),
+                    contentDescription = "weight",
+                    modifier = Modifier
+                        .height(50.dp)
+                )
+
+            }
 
             if (isLoading) {
                 CircularProgressIndicator()
             } else {
                 Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, end = 25.dp, top = 15.dp, bottom = 10.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd)),
+                            shape = ButtonDefaults.shape
+                        )
+                        .height(55.dp),
                     onClick = {
                         isSubmitting = true
                         NetworkManager.updateProfile(
@@ -200,16 +311,21 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
                             isSubmitting = false
                         }
                     },
-                    modifier = Modifier.padding(16.dp),
+
                     enabled = !isSubmitting && !isLoading
+
                 ) {
                     if (isSubmitting) {
                         CircularProgressIndicator(color = Color.White, modifier = Modifier.size(20.dp), strokeWidth = 3.dp)
                     } else {
-                        Text("Update Profile")
+                        Text(
+                            "Update Profile", color = Color.White, fontSize = 16.sp,
+                            fontFamily = poppinsFamily, fontWeight = FontWeight.Bold
+                        )
                     }
 
                 }
+
             }
             // Display result message
             Text(message, modifier = Modifier.padding(8.dp))
@@ -217,6 +333,3 @@ fun ProfileUpdate(userId: Int, navController: NavHostController) {
     }
 }
 
-fun onImagePicked(uri: Uri?) {
-
-}

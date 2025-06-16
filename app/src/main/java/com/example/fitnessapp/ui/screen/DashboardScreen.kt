@@ -18,6 +18,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import android.util.Log
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -57,7 +68,34 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
             TopAppBar(title = { Text("Fitness App", color = Color.Black) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navController.navigate("activity/$userId") },
+                containerColor = Color(0xFFFF9800),
+                shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp)
+            ) {
+                Icon(Icons.Default.PlayArrow, contentDescription = "activity")
+            }
+        },
+        bottomBar = {
+            BottomAppBar(actions = {
+                IconButton(onClick = { navController.navigate("profile/$userId") }) {
+                    Icon(Icons.Filled.Person, contentDescription = "Profile")
+
+                }
+                IconButton(onClick = { navController.navigate("goal/$userId") }) {
+                    Icon(Icons.Filled.AddCircle, contentDescription = "Goals")
+                }
+                IconButton(onClick = { navController.navigate("progress/$userId") }) {
+                    Icon(Icons.Filled.Favorite, contentDescription = "Progress")
+                }
+                IconButton(onClick = { navController.navigate("report/$userId") }) {
+                    Icon(Icons.Filled.DateRange, contentDescription = "Report")
+                }
+            })
         }
+
     ) { paddingValues ->
         Column(
             modifier = Modifier
