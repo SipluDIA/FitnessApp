@@ -42,7 +42,7 @@ fun FitnessApp() {
                 onNavigateToLogin = { navController.popBackStack() },
                 onSignUpSuccess = { userId, _ ->
                     // Navigate to dashboard with userId
-                    navController.navigate("dashboard/$userId")
+                    navController.navigate("profile/$userId")
                 }
             )
         }

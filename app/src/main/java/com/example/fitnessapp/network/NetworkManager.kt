@@ -273,6 +273,52 @@ object NetworkManager {
         requestQueue.add(request)
     }
 
+    /**
+     * Fetches 'Walking' activities for the given user, grouped by date and time for charting.
+     * @param userId The user ID
+     * @param callback (success, todayList, monthMap, message)
+     *        todayList: List of Pair<time, step_count> for today
+     *        monthMap: Map<date, total_step_count> for current month
+     */
+    fun getWalkingActivityReport(
+        userId: Int,
+        callback: (Boolean, List<Pair<String, Int>>, Map<String, Int>, String) -> Unit
+    ) {
+        getActivities(userId) { success, activities, message ->
+            if (!success) {
+                callback(false, emptyList(), emptyMap(), message)
+                return@getActivities
+            }
+            val walkingList = activities["Walking"] ?: emptyList()
+            val today = java.time.LocalDate.now()
+            val month = today.monthValue
+            val year = today.year
+            val todayList = mutableListOf<Pair<String, Int>>()
+            val monthMap = mutableMapOf<String, Int>()
+            for (item in walkingList) {
+                // Parse start_time as LocalDateTime
+                val dt = try {
+                    java.time.LocalDateTime.parse(item.startTime, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                } catch (e: Exception) {
+                    null
+                }
+                if (dt != null) {
+                    // For today chart (x: time, y: step_count)
+                    if (dt.toLocalDate() == today) {
+                        todayList.add(dt.toLocalTime().toString() to item.stepCount)
+                    }
+                    // For month chart (x: date, y: total step_count)
+                    if (dt.year == year && dt.monthValue == month) {
+                        val dateStr = dt.toLocalDate().toString()
+                        monthMap[dateStr] = (monthMap[dateStr] ?: 0) + item.stepCount
+                    }
+                }
+            }
+            // Sort todayList by time, monthMap by date
+            callback(true, todayList.sortedBy { it.first }, monthMap.toSortedMap(), "")
+        }
+    }
+
     data class ActivityItem(
         val stepCount: Int,
         val startTime: String,
