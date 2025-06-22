@@ -90,39 +90,60 @@ fun SimpleColumnChart(
     val barWidth = if (data.size > 0) (1f / data.size) else 0.1f
     val labelCount = if (labels.size > 4) 4 else labels.size
     val labelStep = if (labels.size > 4) (labels.size / labelCount) else 1
+    val yLabelCount = 5 // Number of Y axis labels
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Canvas(modifier = Modifier
-            .height(chartHeight)
-            .fillMaxWidth()
-        ) {
-            val width = size.width
-            val height = size.height
-            val barSpace = width / (data.size * 1.5f)
-            val barActualWidth = barSpace
-            data.forEachIndexed { idx, value ->
-                val left = idx * barSpace * 1.5f
-                val barHeight = if (maxVal == 0f) 0f else (value / maxVal) * height * 0.9f
-                drawRect(
-                    color = barColor,
-                    topLeft = Offset(left, height - barHeight),
-                    size = androidx.compose.ui.geometry.Size(barActualWidth, barHeight)
+    Row(modifier = Modifier.fillMaxWidth()) {
+        // Y-axis labels
+        Column(modifier = Modifier.height(chartHeight).width(40.dp), verticalArrangement = Arrangement.SpaceBetween) {
+            for (i in yLabelCount downTo 0) {
+                val value = (maxVal * i / yLabelCount).toInt()
+                Text("$value", fontSize = MaterialTheme.typography.bodySmall.fontSize)
+            }
+        }
+        // Chart
+        Column(modifier = Modifier.weight(1f)) {
+            Canvas(modifier = Modifier
+                .height(chartHeight)
+                .fillMaxWidth()
+            ) {
+                val width = size.width
+                val height = size.height
+                val barSpace = width / (data.size * 1.5f)
+                val barActualWidth = barSpace
+                // Draw horizontal grid lines
+                for (i in 0..yLabelCount) {
+                    val y = height - (height * i / yLabelCount)
+                    drawLine(
+                        color = Color.LightGray,
+                        start = Offset(0f, y),
+                        end = Offset(width, y),
+                        strokeWidth = 1f
+                    )
+                }
+                data.forEachIndexed { idx, value ->
+                    val left = idx * barSpace * 1.5f
+                    val barHeight = if (maxVal == 0f) 0f else (value / maxVal) * height * 0.9f
+                    drawRect(
+                        color = barColor,
+                        topLeft = Offset(left, height - barHeight),
+                        size = androidx.compose.ui.geometry.Size(barActualWidth, barHeight)
+                    )
+                }
+                // Draw X axis
+                drawLine(
+                    color = Color.Gray,
+                    start = Offset(0f, height),
+                    end = Offset(width, height),
+                    strokeWidth = 2f
                 )
             }
-            // Draw X axis
-            drawLine(
-                color = Color.Gray,
-                start = Offset(0f, height),
-                end = Offset(width, height),
-                strokeWidth = 2f
-            )
-        }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            labels.forEachIndexed { idx, label ->
-                if (idx % labelStep == 0 || labels.size <= 4) {
-                    Text(label, fontSize = MaterialTheme.typography.bodySmall.fontSize)
-                } else {
-                    Spacer(modifier = Modifier.width(1.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                labels.forEachIndexed { idx, label ->
+                    if (idx % labelStep == 0 || labels.size <= 4) {
+                        Text(label, fontSize = MaterialTheme.typography.bodySmall.fontSize)
+                    } else {
+                        Spacer(modifier = Modifier.width(1.dp))
+                    }
                 }
             }
         }
