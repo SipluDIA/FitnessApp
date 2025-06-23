@@ -4,10 +4,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -19,6 +25,7 @@ import com.example.fitnessapp.network.NetworkManager
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ActivityReport(navController: NavHostController, userId: Int) {
@@ -40,40 +47,61 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
             isLoading = false
         }
     }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Activity Report", color = Color.Black) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                navigationIcon = {  // Add a back button
+                    Button(onClick = { navController.popBackStack() }) {
+                        Text("Back")
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .wrapContentSize(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Walking Activity Report", style = MaterialTheme.typography.titleLarge)
-        Spacer(modifier = Modifier.height(16.dp))
-        if (isLoading) {
-            CircularProgressIndicator()
-        } else if (error != null) {
-            Text("Error: $error", color = MaterialTheme.colorScheme.error)
-        } else {
-            // Column Chart for Today
-            Text("Today's Steps by Time", style = MaterialTheme.typography.titleMedium)
-            if (todayList.isEmpty()) {
-                Text("No data for today.")
+            Text("Activity: Walking:", style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(16.dp))
+            if (isLoading) {
+                CircularProgressIndicator()
+            } else if (error != null) {
+                Text("Error: $error", color = MaterialTheme.colorScheme.error)
             } else {
-                SimpleColumnChart(
-                    data = todayList.map { it.second },
-                    labels = todayList.map { it.first },
-                    chartHeight = 220.dp,
-                    barColor = MaterialTheme.colorScheme.primary
-                )
-            }
-            Spacer(modifier = Modifier.height(32.dp))
-            // Column Chart for Month
-            Text("This Month's Steps by Date", style = MaterialTheme.typography.titleMedium)
-            if (monthMap.isEmpty()) {
-                Text("No data for this month.")
-            } else {
-                val monthEntries = monthMap.entries.toList()
-                SimpleColumnChart(
-                    data = monthEntries.map { it.value },
-                    labels = monthEntries.map { it.key },
-                    chartHeight = 220.dp,
-                    barColor = MaterialTheme.colorScheme.secondary
-                )
+                // Column Chart for Today
+                Text("Today's Steps by Time", style = MaterialTheme.typography.titleMedium)
+                if (todayList.isEmpty()) {
+                    Text("No data for today.")
+                } else {
+                    SimpleColumnChart(
+                        data = todayList.map { it.second },
+                        labels = todayList.map { it.first },
+                        chartHeight = 220.dp,
+                        barColor = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.height(32.dp))
+                // Column Chart for Month
+                Text("This Month's Steps by Date", style = MaterialTheme.typography.titleMedium)
+                if (monthMap.isEmpty()) {
+                    Text("No data for this month.")
+                } else {
+                    val monthEntries = monthMap.entries.toList()
+                    SimpleColumnChart(
+                        data = monthEntries.map { it.value },
+                        labels = monthEntries.map { it.key },
+                        chartHeight = 220.dp,
+                        barColor = Color.Cyan
+                    )
+                }
             }
         }
     }
