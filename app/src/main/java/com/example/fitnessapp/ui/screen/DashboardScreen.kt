@@ -32,6 +32,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,6 +49,7 @@ import com.example.fitnessapp.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.fitnessapp.network.NetworkManager
 import com.example.fitnessapp.ui.theme.Black
 import com.example.fitnessapp.ui.theme.Black
 import com.example.fitnessapp.ui.theme.GradientEnd
@@ -298,64 +300,18 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(modifier = Modifier.height(8.dp))
+
+                    // Progress bars for each activity
+
+                    // ...existing code...
                     Column(
                         verticalArrangement = Arrangement.Top, modifier = Modifier
                             .fillMaxWidth()
-                            .height(150.dp)
+
                             .background(color = PurpleLight, shape = RoundedCornerShape(12.dp))
                             .padding(15.dp)
                     ) {
-                        Text(
-                            "Walking",
-                            color = Black,
-                            fontSize = 12.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                        Text(
-                            "78 BPM",
-                            fontSize = 14.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            style = TextStyle(
-                                brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                            )
-                        )
-                        Text(
-                            "Running",
-                            color = Black,
-                            fontSize = 12.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                        Text(
-                            "78 BPM",
-                            fontSize = 14.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            style = TextStyle(
-                                brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                            )
-                        )
-                        Text(
-                            "Cycling",
-                            color = Black,
-                            fontSize = 12.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                        Text(
-                            "78 BPM",
-                            fontSize = 14.sp,
-                            fontFamily = poppinsFamily,
-                            fontWeight = FontWeight.SemiBold,
-                            style = TextStyle(
-                                brush = Brush.horizontalGradient(listOf(GradientStart, GradientEnd))
-                            )
-                        )
+                        ActivityStatusSection(userId = userId)
                     }
                     Spacer(modifier = Modifier.height(22.dp))
                     Row(modifier = Modifier.fillMaxSize()) {
@@ -462,33 +418,112 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
     }
 }
 
-/*
+@Composable
+fun ActivityStatusSection(userId: Int) {
+    var isLoading by remember { mutableStateOf(true) }
+    var goal by remember { mutableStateOf(mapOf<String, Int>()) }
+    var progress by remember { mutableStateOf(mapOf<String, Int>()) }
+    var error by remember { mutableStateOf<String?>(null) }
+    val activityTypes = listOf("Walking", "Running", "Cycling", "Swimming")
+    val activityKeys = listOf("walking", "running", "cycling", "swimming")
+    val month = remember { java.time.LocalDate.now().monthValue }
+    val year = remember { java.time.LocalDate.now().year }
 
-            Button(
-                onClick = { navController.navigate("profile/$userId") },
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text("Your Profile")
+    LaunchedEffect(userId) {
+        isLoading = true
+        var goalMap = mapOf<String, Int>()
+        var progressMap = mapOf<String, Int>()
+        var err: String? = null
+        val done = arrayOf(false, false)
+        NetworkManager.getGoal(userId) { success, w, r, c, s ->
+            if (success) {
+                goalMap = mapOf(
+                    "Walking" to w,
+                    "Running" to r,
+                    "Cycling" to c,
+                    "Swimming" to s
+                )
+            } else {
+                err = "Failed to load goals"
             }
-            Button(
-                onClick = { navController.navigate("goal/$userId") }, // Navigate to All
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text("Set Your Goal")
-            }
-            Button( // New button for viewing students by course.
-                onClick = { navController.navigate("activity/$userId") },  // Navigate with a default course
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text("Record Activity")
-            }
-            Button( // New button for viewing students by course.
-                onClick = { navController.navigate("progress/$userId") },  // Navigate with a default course
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text("View Progress")
+            done[0] = true
+            if (done.all { it }) {
+                isLoading = false
+                goal = goalMap
+                progress = progressMap
+                error = err
             }
         }
+        NetworkManager.getActivities(userId) { success, activities, msg ->
+            if (success) {
+                val map = mutableMapOf<String, Int>()
+                for (type in activityTypes) {
+                    val total = activities[type]?.filter {
+                        // Only current month
+                        try {
+                            val dt = java.time.LocalDateTime.parse(it.startTime, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                            dt.year == year && dt.monthValue == month
+                        } catch (e: Exception) { false }
+                    }?.sumOf { it.stepCount } ?: 0
+                    map[type] = total
+                }
+                progressMap = map
+            } else {
+                err = "Failed to load activities"
+            }
+            done[1] = true
+            if (done.all { it }) {
+                isLoading = false
+                goal = goalMap
+                progress = progressMap
+                error = err
+            }
         }
     }
-*/
+    if (isLoading) {
+        CircularProgressIndicator()
+    } else if (error != null) {
+        Text(error!!, color = MaterialTheme.colorScheme.error)
+    } else {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            for (type in activityTypes) {
+                val total = progress[type] ?: 0
+                val target = goal[type] ?: 0
+                val percent = if (target > 0) (total * 100 / target).coerceAtMost(100) else 0
+                val color = when (type) {
+                    "Walking" -> Color(0xFFE769B1)
+                    "Running" -> Color(0xFF4CAF50)
+                    "Cycling" -> Color(0xFF2196F3)
+                    "Swimming" -> Color(0xFF00BCD4)
+                    else -> MaterialTheme.colorScheme.primary
+                }
+                Text(type,
+                    fontSize = 14.sp,
+                    fontFamily = poppinsFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    style = TextStyle(
+                        brush = Brush.horizontalGradient(
+                            listOf(
+                                GradientStart,
+                                GradientEnd
+                            )
+                        )
+                    ))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(18.dp)
+                        .background(Grey3, RoundedCornerShape(8.dp))
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(percent / 100f)
+                            .background(color, RoundedCornerShape(8.dp))
+                    )
+                }
+                Text("$total / $target", fontSize = 12.sp, color = Black, modifier = Modifier.padding(bottom = 8.dp))
+            }
+        }
+    }
+}

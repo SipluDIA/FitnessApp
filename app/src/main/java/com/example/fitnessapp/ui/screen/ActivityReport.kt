@@ -85,7 +85,7 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
                         data = todayList.map { it.second },
                         labels = todayList.map { it.first },
                         chartHeight = 220.dp,
-                        barColor = MaterialTheme.colorScheme.primary
+                        barColor = Color(0xFF6650a4)
                     )
                 }
                 Spacer(modifier = Modifier.height(32.dp))
@@ -99,7 +99,7 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
                         data = monthEntries.map { it.value },
                         labels = monthEntries.map { it.key },
                         chartHeight = 220.dp,
-                        barColor = Color.Cyan
+                        barColor = Color(0xFFE769B1)
                     )
                 }
             }
