@@ -18,10 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.fitnessapp.network.NetworkManager
+import com.example.fitnessapp.ui.theme.Black
+import com.example.fitnessapp.ui.theme.poppinsFamily
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -29,6 +33,25 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ActivityReport(navController: NavHostController, userId: Int) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {  Text(
+                    "Trac Progress ",
+                    color = Black,
+                    fontSize = 20.sp,
+                    fontFamily = poppinsFamily,
+                    fontWeight = FontWeight.Bold,
+                ) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                navigationIcon = {  // Add a back button
+                    Button(onClick = { navController.popBackStack() }) {
+                        Text("Back")
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
     var isLoading by remember { mutableStateOf(true) }
     var todayList by remember { mutableStateOf<List<Pair<String, Int>>>(emptyList()) }
     var monthMap by remember { mutableStateOf<Map<String, Int>>(emptyMap()) }
@@ -47,29 +70,18 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
             isLoading = false
         }
     }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Activity Report", color = Color.Black) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                navigationIcon = {  // Add a back button
-                    Button(onClick = { navController.popBackStack() }) {
-                        Text("Back")
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(paddingValues)
-                .wrapContentSize(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(start = 20.dp, end = 20.dp, top = 5.dp, bottom = 25.dp)
+                .wrapContentHeight()
+                .fillMaxWidth()
         ) {
 
-            Text("Activity: Walking:", style = MaterialTheme.typography.titleLarge)
+            Text("Activity: Walking:", color = Black,
+                fontSize = 20.sp,
+                fontFamily = poppinsFamily,
+                fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(16.dp))
             if (isLoading) {
                 CircularProgressIndicator()
@@ -77,7 +89,10 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
                 Text("Error: $error", color = MaterialTheme.colorScheme.error)
             } else {
                 // Column Chart for Today
-                Text("Today's Steps by Time", style = MaterialTheme.typography.titleMedium)
+                Text("Today's Steps by Time", color = Black,
+                    fontSize = 16.sp,
+                    fontFamily = poppinsFamily,
+                    fontWeight = FontWeight.Bold,)
                 if (todayList.isEmpty()) {
                     Text("No data for today.")
                 } else {
@@ -90,7 +105,10 @@ fun ActivityReport(navController: NavHostController, userId: Int) {
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 // Column Chart for Month
-                Text("This Month's Steps by Date", style = MaterialTheme.typography.titleMedium)
+                Text("This Month's Steps by Date",color = Black,
+                    fontSize = 20.sp,
+                    fontFamily = poppinsFamily,
+                    fontWeight = FontWeight.Bold,)
                 if (monthMap.isEmpty()) {
                     Text("No data for this month.")
                 } else {
@@ -118,7 +136,7 @@ fun SimpleColumnChart(
     val barWidth = if (data.size > 0) (1f / data.size) else 0.1f
     val labelCount = if (labels.size > 4) 4 else labels.size
     val labelStep = if (labels.size > 4) (labels.size / labelCount) else 1
-    val yLabelCount = 5 // Number of Y axis labels
+    val yLabelCount = 6 // Number of Y axis labels
 
     Row(modifier = Modifier.fillMaxWidth()) {
         // Y-axis labels

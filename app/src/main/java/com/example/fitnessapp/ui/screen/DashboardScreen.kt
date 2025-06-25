@@ -492,7 +492,7 @@ fun ActivityStatusSection(userId: Int) {
                 val percent = if (target > 0) (total * 100 / target).coerceAtMost(100) else 0
                 val color = when (type) {
                     "Walking" -> Color(0xFFE769B1)
-                    "Running" -> Color(0xFF4CAF50)
+                    "Running" -> Color(0xFF9919E0)
                     "Cycling" -> Color(0xFF2196F3)
                     "Swimming" -> Color(0xFF00BCD4)
                     else -> MaterialTheme.colorScheme.primary
