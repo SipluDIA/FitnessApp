@@ -1,4 +1,3 @@
-
 package com.example.fitnessapp.ui.screen
 
 import android.net.Uri
@@ -35,6 +34,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -63,6 +63,7 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
     var userName by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(true) }
     var profileImageUrl by remember { mutableStateOf<String?>(null) }
+    var age by remember { mutableStateOf<Int?>(null) }
     var weight by remember { mutableStateOf<Float?>(null) }
     var height by remember { mutableStateOf<Float?>(null) }
     val defaultPic = painterResource(id = R.drawable.default_profile)
@@ -70,12 +71,13 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
     // Fetch user info on first composition
     LaunchedEffect(userId) {
         isLoading = true
-        com.example.fitnessapp.network.NetworkManager.readProfile(userId) { success, n, _, _, w, h, imgUrl ->
+        com.example.fitnessapp.network.NetworkManager.readProfile(userId) { success, n, _, a, w, h, imgUrl ->
             if (success) {
                 userName = n
                 profileImageUrl = imgUrl
                 weight = w.toFloatOrNull()
                 height = h.toFloatOrNull()
+                age = a.toIntOrNull()
             } else {
                 userName = "Unknown"
             }
@@ -98,7 +100,6 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
             BottomAppBar(actions = {
                 IconButton(onClick = { navController.navigate("profile/$userId") }) {
                     Icon(Icons.Filled.Person, contentDescription = "Profile")
-
                 }
                 IconButton(onClick = { navController.navigate("goal/$userId") }) {
                     Icon(Icons.Filled.AddCircle, contentDescription = "Goals")
@@ -122,7 +123,7 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                         .wrapContentSize(),
 
                     ) {
-                    // Profile picture before welcome
+                    val cardShape = RoundedCornerShape(16.dp)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -248,6 +249,168 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                             }
                         }
                     }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+
+
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .weight(1f)
+                                .shadow(
+                                    shape = cardShape,
+                                    spotColor = Grey3,
+                                    elevation = 20.dp
+                                ),
+                            shape = cardShape
+                        ) {
+
+
+                            Column(
+
+                                modifier = Modifier
+                                    .padding(
+                                        start = 20.dp,
+                                        top = 12.dp,
+                                        end = 20.dp,
+                                        bottom = 12.dp
+                                    )
+                                    .fillMaxWidth(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    "$height",
+                                    fontSize = 14.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Medium,
+                                    style = TextStyle(
+                                        brush = Brush.horizontalGradient(
+                                            listOf(
+                                                GradientStart,
+                                                GradientEnd
+                                            )
+                                        )
+                                    )
+                                )
+                                Text(
+                                    "Height",
+                                    color = Grey1,
+                                    fontSize = 12.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Normal,
+                                    maxLines = 1
+                                )
+                            }
+
+                        }
+                        Spacer(modifier = Modifier.width(18.dp))
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .weight(1f)
+                                .shadow(
+                                    shape = cardShape,
+                                    spotColor = Grey3,
+                                    elevation = 20.dp
+                                ),
+                            shape = cardShape
+                        ) {
+
+
+                            Column(
+                                modifier = Modifier
+                                    .padding(
+                                        start = 20.dp,
+                                        top = 12.dp,
+                                        end = 20.dp,
+                                        bottom = 12.dp
+                                    )
+                                    .fillMaxWidth(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    "$weight",
+                                    fontSize = 14.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Medium,
+                                    style = TextStyle(
+                                        brush = Brush.horizontalGradient(
+                                            listOf(
+                                                GradientStart,
+                                                GradientEnd
+                                            )
+                                        )
+                                    )
+                                )
+                                Text(
+                                    "Weight",
+                                    color = Grey1,
+                                    fontSize = 12.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Normal,
+                                    maxLines = 1
+                                )
+                            }
+
+                        }
+                        Spacer(modifier = Modifier.width(18.dp))
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = Color.White),
+                            modifier = Modifier
+                                .weight(1f)
+                                .shadow(
+                                    shape = cardShape,
+                                    spotColor = Grey3,
+                                    elevation = 20.dp
+                                ),
+                            shape = cardShape
+                        ) {
+
+
+                            Column(
+                                modifier = Modifier
+                                    .padding(
+                                        start = 20.dp,
+                                        top = 12.dp,
+                                        end = 20.dp,
+                                        bottom = 12.dp
+                                    )
+                                    .fillMaxWidth(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    "$age",
+                                    fontSize = 14.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Medium,
+                                    style = TextStyle(
+                                        brush = Brush.horizontalGradient(
+                                            listOf(
+                                                GradientStart,
+                                                GradientEnd
+                                            )
+                                        )
+                                    )
+                                )
+                                Text(
+                                    "Age",
+                                    color = Grey1,
+                                    fontSize = 12.sp,
+                                    fontFamily = poppinsFamily,
+                                    fontWeight = FontWeight.Normal,
+                                    maxLines = 1
+                                )
+                            }
+
+                        }
+                    }
+
                     Spacer(modifier = Modifier.height(18.dp))
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -413,6 +576,7 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
     }
 }
 
+
 @Composable
 fun ActivityStatusSection(userId: Int) {
     var isLoading by remember { mutableStateOf(true) }
@@ -480,44 +644,73 @@ fun ActivityStatusSection(userId: Int) {
     } else if (error != null) {
         Text(error!!, color = MaterialTheme.colorScheme.error)
     } else {
+        // Show circular progress indicators for each activity, 2 per row
+        val chunkedTypes = activityTypes.chunked(2)
         Column(modifier = Modifier.fillMaxWidth()) {
-            for (type in activityTypes) {
-                val total = progress[type] ?: 0
-                val target = goal[type] ?: 0
-                val percent = if (target > 0) (total * 100 / target).coerceAtMost(100) else 0
-                val color = when (type) {
-                    "Walking" -> Color(0xFFE769B1)
-                    "Running" -> Color(0xFF9919E0)
-                    "Cycling" -> Color(0xFF2196F3)
-                    "Swimming" -> Color(0xFF00BCD4)
-                    else -> MaterialTheme.colorScheme.primary
-                }
-                Text(type,
-                    fontSize = 14.sp,
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.SemiBold,
-                    style = TextStyle(
-                        brush = Brush.horizontalGradient(
-                            listOf(
-                                GradientStart,
-                                GradientEnd
-                            )
-                        )
-                    ))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(18.dp)
-                        .background(Grey3, RoundedCornerShape(8.dp))
+            for (rowTypes in chunkedTypes) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth(percent / 100f)
-                            .background(color, RoundedCornerShape(8.dp))
-                    )
+                    for (type in rowTypes) {
+                        val total = progress[type] ?: 0
+                        val target = goal[type] ?: 0
+                        val percent = if (target > 0) (total * 100 / target).coerceAtMost(100) else 0
+                        val progressFraction = if (target > 0) (total.toFloat() / target).coerceAtMost(1f) else 0f
+                        val color = when (type) {
+                            "Walking" -> Color(0xFFE769B1)
+                            "Running" -> Color(0xFF9919E0)
+                            "Cycling" -> Color(0xFF2196F3)
+                            "Swimming" -> Color(0xFF00BCD4)
+                            else -> MaterialTheme.colorScheme.primary
+                        }
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(8.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                CircularProgressIndicator(
+                                    progress = progressFraction,
+                                    color = color,
+                                    strokeWidth = 8.dp,
+                                    modifier = Modifier.size(64.dp)
+                                )
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text(
+                                        "$percent%",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = color
+                                    )
+                                    Text(
+                                        "$total/$target",
+                                        fontSize = 12.sp,
+                                        color = Black
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                type,
+                                fontSize = 14.sp,
+                                fontFamily = poppinsFamily,
+                                fontWeight = FontWeight.SemiBold,
+                                style = TextStyle(
+                                    brush = Brush.horizontalGradient(
+                                        listOf(
+                                            GradientStart,
+                                            GradientEnd
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                    // If this row has only one item, add a Spacer to balance layout
+                    if (rowTypes.size == 1) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                 }
-                Text("$total / $target", fontSize = 12.sp, color = Black, modifier = Modifier.padding(bottom = 8.dp))
             }
         }
     }
