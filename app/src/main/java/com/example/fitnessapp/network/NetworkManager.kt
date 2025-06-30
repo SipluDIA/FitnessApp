@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 object NetworkManager {
@@ -324,4 +325,41 @@ object NetworkManager {
         val startTime: String,
         val endTime: String
     )
+    /**
+     * Syncs a list of offline activities to the server and marks them as synced if successful.
+     * Call this from your OfflineSyncManager or connectivity callback.
+     */
+    fun syncOfflineActivities(
+        context: Context,
+        activities: List<com.example.fitnessapp.offline.OfflineActivity>,
+        onComplete: (() -> Unit)? = null
+    ) {
+        if (activities.isEmpty()) {
+            onComplete?.invoke()
+            return
+        }
+        val db = com.example.fitnessapp.offline.AppDatabase.getDatabase(context)
+        val dao = db.offlineActivityDao()
+        var remaining = activities.size
+        for (activity in activities) {
+            saveActivity(
+                userId = activity.userId,
+                activityType = activity.activityType,
+                stepCount = activity.stepCount,
+                startTime = activity.startTime,
+                endTime = activity.endTime
+            ) { success, _ ->
+                if (success) {
+                    // Mark as synced
+                    kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                        dao.update(activity.copy(synced = true))
+                    }
+                }
+                remaining--
+                if (remaining == 0) {
+                    onComplete?.invoke()
+                }
+            }
+        }
+    }
 }

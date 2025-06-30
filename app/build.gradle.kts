@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -56,12 +57,15 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.volley)
     implementation(libs.coil.compose)
+    implementation("com.google.accompanist:accompanist-drawablepainter:0.37.3")
     // Vico Compose Chart
     implementation(libs.compose.m3)
     implementation(libs.core)
     implementation(libs.compose)
-    implementation("com.patrykandpatrick.vico:compose-m3:1.13.0")
-    implementation("com.patrykandpatrick.vico:core:1.13.0")
+    implementation(libs.compose.m3)
+    implementation(libs.core)
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,3 +74,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+

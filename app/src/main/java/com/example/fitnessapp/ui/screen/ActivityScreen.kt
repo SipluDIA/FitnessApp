@@ -31,6 +31,31 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.fitnessapp.network.NetworkManager
+import com.example.fitnessapp.offline.AppDatabase
+import com.example.fitnessapp.offline.OfflineActivity
+import com.example.fitnessapp.offline.OfflineSyncManager
+import android.net.ConnectivityManager
+import com.example.fitnessapp.R
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getDrawable
+import com.example.fitnessapp.ui.theme.GradientEnd
+import com.example.fitnessapp.ui.theme.GradientStart
+import com.example.fitnessapp.ui.theme.poppinsFamily
+import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -45,7 +70,32 @@ fun Context.findActivity(): Activity = when (this) {
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun ActivityScreen(navController: NavHostController, userId: Int) {
+    // Connectivity observer for sync
     val context = LocalContext.current
+    val connectivityManager = remember {
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+    DisposableEffect(Unit) {
+        val networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                // Try to sync when network is available
+                OfflineSyncManager.syncOfflineActivities(context)
+            }
+        }
+        val request = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+        try {
+            connectivityManager.registerNetworkCallback(request, networkCallback)
+        } catch (e: SecurityException) {
+            // Permission missing, do nothing
+        }
+        onDispose {
+            try {
+                connectivityManager.unregisterNetworkCallback(networkCallback)
+            } catch (_: Exception) {}
+        }
+    }
     val activity = context.findActivity()
     // Permission state
     var hasPermission by remember {
@@ -121,6 +171,30 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text("Count:",fontSize = 14.sp, fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold,)
+            Box(contentAlignment = Alignment.Center){
+                Image(
+                    painter = rememberDrawablePainter(
+                        drawable = getDrawable(
+                            LocalContext.current,
+                            R.drawable.circle
+                        )
+                    ),
+                    contentDescription = "Loading animation",
+                    contentScale = ContentScale.FillWidth,
+                )
+
+                Spacer(Modifier.height(16.dp))
+                Text("$stepCount", fontSize = 60.sp, fontFamily = poppinsFamily, fontWeight = FontWeight.SemiBold,
+                    style = TextStyle(
+                        brush = Brush.horizontalGradient(
+                            listOf(
+                                GradientStart,
+                                GradientEnd
+                            )
+                        )))
+            }
+            Spacer(Modifier.height(16.dp))
             Text("Select Activity", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(8.dp))
             Row {
@@ -134,8 +208,6 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                     enabled = activityType != "Running"
                 ) { Text("Running") }
             }
-            Spacer(Modifier.height(16.dp))
-            Text("Count: $stepCount", style = MaterialTheme.typography.bodyLarge)
             Spacer(Modifier.height(16.dp))
             Row {
                 Button(onClick = {
@@ -169,16 +241,40 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                     if (startTime != null) {
                         isTracking = false
                         endTime = LocalDateTime.now()
-                        // Save activity
-                        NetworkManager.saveActivity(
-                            userId = userId,
-                            activityType = activityType,
-                            stepCount = stepCount,
-                            startTime = formatter.format(startTime!!),
-                            endTime = formatter.format(endTime!!)
-                        ) { success, message ->
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        // Save activity, supporting offline
+                        val isOnline = try {
+                        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+                        val network = cm?.activeNetwork
+                        val capabilities = cm?.getNetworkCapabilities(network)
+                        capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        } catch (e: Exception) { false }
 
+                        if (isOnline) {
+                            NetworkManager.saveActivity(
+                                userId = userId,
+                                activityType = activityType,
+                                stepCount = stepCount,
+                                startTime = formatter.format(startTime!!),
+                                endTime = formatter.format(endTime!!)
+                            ) { success, message ->
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            // Save to Room for later sync
+                            CoroutineScope(Dispatchers.IO).launch {
+                                val db = AppDatabase.getDatabase(context)
+                                db.offlineActivityDao().insert(
+                                    OfflineActivity(
+                                        userId = userId,
+                                        activityType = activityType,
+                                        stepCount = stepCount,
+                                        startTime = formatter.format(startTime!!),
+                                        endTime = formatter.format(endTime!!),
+                                        synced = false
+                                    )
+                                )
+                            }
+                            Toast.makeText(context, "Saved offline. Will sync when online.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }, enabled = startTime != null) { Text("Save") }
