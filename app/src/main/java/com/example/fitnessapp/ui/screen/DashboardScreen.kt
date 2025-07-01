@@ -19,12 +19,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,6 +34,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -54,6 +57,7 @@ import com.example.fitnessapp.ui.theme.Grey2
 import com.example.fitnessapp.ui.theme.Grey3
 import com.example.fitnessapp.ui.theme.Pink1
 import com.example.fitnessapp.ui.theme.PurpleLight
+import com.example.fitnessapp.ui.theme.RedDanger
 import com.example.fitnessapp.ui.theme.poppinsFamily
 
 
@@ -93,13 +97,14 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                 containerColor = Color(0xFFFF9800),
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp)
             ) {
-                Icon(Icons.Default.PlayArrow, contentDescription = "activity")
+                Icon(Icons.Default.Add, contentDescription = "Add")
             }
         },
         bottomBar = {
             BottomAppBar(actions = {
                 IconButton(onClick = { navController.navigate("profile/$userId") }) {
                     Icon(Icons.Filled.Person, contentDescription = "Profile")
+
                 }
                 IconButton(onClick = { navController.navigate("goal/$userId") }) {
                     Icon(Icons.Filled.AddCircle, contentDescription = "Goals")
@@ -110,7 +115,8 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                 IconButton(onClick = { navController.navigate("report/$userId") }) {
                     Icon(Icons.Filled.DateRange, contentDescription = "Report")
                 }
-            })
+            }
+            )
         }
 
     ) { paddingValues ->
@@ -497,7 +503,7 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                                     )
                                 ) {
                                     Text(
-                                        "Walking",
+                                        "This Month",
                                         color = Black,
                                         fontSize = 12.sp,
                                         fontFamily = poppinsFamily,
@@ -544,7 +550,7 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                                     )
                                 ) {
                                     Text(
-                                        "Running",
+                                        "This Month",
                                         color = Black,
                                         fontSize = 12.sp,
                                         fontFamily = poppinsFamily,
@@ -574,6 +580,10 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
             }
         }, modifier = Modifier.fillMaxSize())
     }
+}
+
+fun lebel(text: Unit) {
+
 }
 
 
@@ -670,10 +680,11 @@ fun ActivityStatusSection(userId: Int) {
                         ) {
                             Box(contentAlignment = Alignment.Center) {
                                 CircularProgressIndicator(
-                                    progress = progressFraction,
+                                    progress = { progressFraction },
+                                    modifier = Modifier.size(120.dp),
                                     color = color,
-                                    strokeWidth = 8.dp,
-                                    modifier = Modifier.size(64.dp)
+                                    strokeWidth = 10.dp,
+                                    trackColor = MaterialTheme.colorScheme.surfaceVariant,
                                 )
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
@@ -686,6 +697,12 @@ fun ActivityStatusSection(userId: Int) {
                                         "$total/$target",
                                         fontSize = 12.sp,
                                         color = Black
+                                    )
+                                    val caloricBurn = total * 0.04
+                                    Text(
+                                        "C.Burn: %.2f".format(caloricBurn),
+                                        fontSize = 14.sp,
+                                        color = RedDanger
                                     )
                                 }
                             }
