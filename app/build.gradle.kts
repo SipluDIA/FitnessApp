@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.volley)
     implementation(libs.coil.compose)
-    implementation("com.google.accompanist:accompanist-drawablepainter:0.37.3")
+    implementation(libs.accompanist.drawablepainter)
     // Vico Compose Chart
     implementation(libs.compose.m3)
     implementation(libs.core)
