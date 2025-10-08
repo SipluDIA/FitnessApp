@@ -1,10 +1,14 @@
 package com.example.fitnessapp.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class ActivityLog(
-    val id: String, // Or Int
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val userId: Int,
     val activityType: String,
-    val activityDate: String, // Use Instant or LocalDateTime for better handling
+    val activityDate: String,
     val durationMinutes: Int?,
     val distanceKm: Float?,
     val exerciseName: String? = null,

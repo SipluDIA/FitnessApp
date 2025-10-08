@@ -1,5 +1,6 @@
 package com.example.fitnessapp.ui.screen
 
+import android.Manifest
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -59,11 +60,40 @@ import com.example.fitnessapp.ui.theme.Pink1
 import com.example.fitnessapp.ui.theme.PurpleLight
 import com.example.fitnessapp.ui.theme.RedDanger
 import com.example.fitnessapp.ui.theme.poppinsFamily
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.annotation.RequiresPermission
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.app.ActivityCompat
+import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri: Uri? = null) {
+fun DashboardScreen(userId: Int, navController: NavHostController) {
+    val context = LocalContext.current
+    // Permission launcher for notifications
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { granted ->
+            if (granted) {
+                showBasicNotification(
+                    context,
+                    "goal_login_channel",
+                    "Goal Reminder",
+                    "You need to add Activity to fulfill your goal of this month",
+                    notificationId = 1001
+                )
+            }
+        }
+    )
     var userName by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(true) }
     var profileImageUrl by remember { mutableStateOf<String?>(null) }
@@ -71,6 +101,87 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
     var weight by remember { mutableStateOf<Float?>(null) }
     var height by remember { mutableStateOf<Float?>(null) }
     val defaultPic = painterResource(id = R.drawable.default_profile)
+    var showGoalNotification by remember { mutableStateOf(false) }
+    var showLoginNotification by remember { mutableStateOf(true) }
+
+    // Show login notification on entering dashboard
+    LaunchedEffect(showLoginNotification) {
+        if (showLoginNotification) {
+            if (Build.VERSION.SDK_INT >= 33 &&
+                ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                showBasicNotification(
+                    context,
+                    "goal_login_channel",
+                    "Goal Reminder",
+                    "You need to add Activity to fulfill your goal of this month",
+                    notificationId = 1001
+                )
+            }
+        }
+    }
+
+    // Dismiss button for login notification
+    if (showLoginNotification) {
+        Button(
+            onClick = {
+                showLoginNotification = false
+                dismissNotification(context, 1001)
+            },
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Text("Dismiss")
+        }
+    }
+// Helper function to show a basic notification
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+fun showBasicNotification(
+    context: Context,
+    channelId: String,
+    title: String,
+    message: String,
+    notificationId: Int
+) {
+    // Create notification channel if needed
+    val channel = NotificationChannel(
+        channelId,
+        title,
+        NotificationManager.IMPORTANCE_DEFAULT
+    )
+    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notificationManager.createNotificationChannel(channel)
+    val builder = NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.ic_icon_notification)
+        .setContentTitle(title)
+        .setContentText(message)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setAutoCancel(true)
+    if (ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) != PackageManager.PERMISSION_GRANTED
+    ) {
+        // TODO: Consider calling
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        return
+    }
+    NotificationManagerCompat.from(context).notify(notificationId, builder.build())
+}
+
+// Helper function to dismiss a notification
+fun dismissNotification(context: Context, notificationId: Int) {
+    NotificationManagerCompat.from(context).cancel(notificationId)
+}
 
     // Fetch user info on first composition
     LaunchedEffect(userId) {
@@ -97,26 +208,46 @@ fun DashboardScreen(userId: Int, navController: NavHostController, profilePicUri
                 containerColor = Color(0xFFFF9800),
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp, bottomStart = 30.dp)
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+                Icon(painter = painterResource(R.drawable.ic_icon_action), contentDescription = "Add")
             }
         },
         bottomBar = {
-            BottomAppBar(actions = {
-                IconButton(onClick = { navController.navigate("profile/$userId") }) {
-                    Icon(Icons.Filled.Person, contentDescription = "Profile")
-
-                }
-                IconButton(onClick = { navController.navigate("goal/$userId") }) {
-                    Icon(Icons.Filled.AddCircle, contentDescription = "Goals")
-                }
-                IconButton(onClick = { navController.navigate("progress/$userId") }) {
-                    Icon(Icons.Filled.Favorite, contentDescription = "Progress")
-                }
-                IconButton(onClick = { navController.navigate("report/$userId") }) {
-                    Icon(Icons.Filled.DateRange, contentDescription = "Report")
+            BottomAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                containerColor = MaterialTheme.colorScheme.surface,
+                tonalElevation = 4.dp
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(onClick = { navController.navigate("profile/$userId") }) {
+                            Icon(Icons.Filled.Person, contentDescription = "Profile")
+                        }
+                        Text("Profile", fontSize = 10.sp)
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(onClick = { navController.navigate("goal/$userId") }) {
+                            Icon(painter = painterResource(R.drawable.ic_icon_goal), contentDescription = "Goals")
+                        }
+                        Text("Goals", fontSize = 10.sp)
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(onClick = { navController.navigate("progress/$userId") }) {
+                            Icon(painter = painterResource(R.drawable.ic_icon_activity), contentDescription = "Activity")
+                        }
+                        Text("Activities", fontSize = 10.sp)
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(onClick = { navController.navigate("report/$userId") }) {
+                            Icon(painter = painterResource(R.drawable.ic_icon_progress), contentDescription = "Progress")
+                        }
+                        Text("Progress", fontSize = 10.sp)
+                    }
                 }
             }
-            )
         }
 
     ) { paddingValues ->
@@ -598,6 +729,10 @@ fun ActivityStatusSection(userId: Int) {
     val month = remember { java.time.LocalDate.now().monthValue }
     val year = remember { java.time.LocalDate.now().year }
 
+    // Notification state
+    var showAddActivityNotification by remember { mutableStateOf(false) }
+    var showGoalNotification by remember { mutableStateOf<String?>(null) }
+
     LaunchedEffect(userId) {
         isLoading = true
         var goalMap = mapOf<String, Int>()
@@ -649,14 +784,42 @@ fun ActivityStatusSection(userId: Int) {
             }
         }
     }
+    // Notification logic
+    val allTotalsZero = progress.values.all { it == 0 }
+    LaunchedEffect(progress) {
+        showAddActivityNotification = allTotalsZero
+    }
+    LaunchedEffect(progress, goal) {
+        showGoalNotification = null
+        for ((type, total) in progress) {
+            val target = goal[type] ?: 0
+            if (target > 0 && total >= target) {
+                showGoalNotification = type
+                break
+            }
+        }
+    }
     if (isLoading) {
         CircularProgressIndicator()
     } else if (error != null) {
         Text(error!!, color = MaterialTheme.colorScheme.error)
     } else {
-        // Show circular progress indicators for each activity, 2 per row
         val chunkedTypes = activityTypes.chunked(2)
         Column(modifier = Modifier.fillMaxWidth()) {
+            // Notification bar for adding activity
+            if (showAddActivityNotification) {
+                NotificationBar(
+                    message = "You need to add Activity to fulfill your goal of this month",
+                    onDismiss = { showAddActivityNotification = false }
+                )
+            }
+            // Notification bar for goal achievement
+            if (showGoalNotification != null) {
+                GoalNotificationBar(
+                    activityType = showGoalNotification!!,
+                    onDismiss = { showGoalNotification = null }
+                )
+            }
             for (rowTypes in chunkedTypes) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -731,4 +894,103 @@ fun ActivityStatusSection(userId: Int) {
             }
         }
     }
+}
+
+@Composable
+fun NotificationBar(message: String, onDismiss: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFFFF3E0))
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = message,
+                color = Color(0xFFBF360C),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            Button(onClick = onDismiss, modifier = Modifier.padding(start = 8.dp)) {
+                Text("Dismiss")
+            }
+        }
+    }
+}
+
+@Composable
+fun GoalNotificationBar(activityType: String, onDismiss: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFE1F5FE))
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Cup Icon (use built-in or custom drawable)
+            Icon(
+                painter = painterResource(id = com.example.fitnessapp.R.drawable.ic_cup),
+                contentDescription = "Cup Icon",
+                tint = Color(0xFFFFC107),
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "Congratulations! You have reached the target Goal for $activityType.",
+                color = Color(0xFF1976D2),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
+            )
+            val context = LocalContext.current
+            Button(
+                onClick = {
+                    val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(
+                            android.content.Intent.EXTRA_TEXT,
+                            "Congratulations! I have reached my $activityType goal in FitnessApp! #FitnessApp"
+                        )
+                    }
+                    val chooser = android.content.Intent.createChooser(shareIntent, "Share your achievement")
+                    context.startActivity(chooser)
+                },
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
+                Text("Share")
+            }
+        }
+    }
+}
+
+// Helper function to show a basic notification
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+fun showBasicNotification(
+    context: Context,
+    channelId: String,
+    title: String,
+    message: String,
+    notificationId: Int
+) {
+    // Create notification channel if needed
+    val channel = NotificationChannel(
+        channelId,
+        "FitnessApp Notifications",
+        NotificationManager.IMPORTANCE_DEFAULT
+    )
+    val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    manager.createNotificationChannel(channel)
+    val builder = NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.ic_icon_notification)
+        .setContentTitle(title)
+        .setContentText(message)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setAutoCancel(true)
+    NotificationManagerCompat.from(context).notify(notificationId, builder.build())
+}
+
+// Helper function to dismiss a notification
+fun dismissNotification(context: Context, notificationId: Int) {
+    NotificationManagerCompat.from(context).cancel(notificationId)
 }

@@ -11,6 +11,25 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 object NetworkManager {
+    /**
+     * Fetches the latest activity for a user (most recent end_time).
+     */
+    fun getLatestActivity(userId: Int, callback: (Boolean, ActivityItem?, String) -> Unit) {
+        getActivities(userId) { success, activities, message ->
+            if (!success) {
+                callback(false, null, message)
+                return@getActivities
+            }
+            // Flatten all activities into a single list
+            val all = activities.values.flatten()
+            val latest = all.maxByOrNull {
+                try {
+                    java.time.LocalDateTime.parse(it.endTime, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                } catch (e: Exception) { java.time.LocalDateTime.MIN }
+            }
+            callback(true, latest, message)
+        }
+    }
     private lateinit var requestQueue: RequestQueue
     private const val BASE_URL = "https://dreamarray.com/api"
 

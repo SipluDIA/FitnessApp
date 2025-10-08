@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.fitnessapp.ui.screen.ActivityReport
 import com.example.fitnessapp.ui.screen.ActivityScreen
+import com.example.fitnessapp.ui.screen.ActivitySummery
 import com.example.fitnessapp.ui.screen.DashboardScreen
 import com.example.fitnessapp.ui.screen.GetStartedScreen
 import com.example.fitnessapp.ui.screen.LoginScreen
@@ -100,6 +101,16 @@ fun FitnessApp() {
         ) { backStackEntry ->
             val id = backStackEntry.arguments!!.getInt("userId")
             ActivityReport(userId = id,navController = navController)
+        }
+
+        composable(
+            route = "summery/{userId}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+            )
+        ) {
+            val id = it.arguments!!.getInt("userId")
+            ActivitySummery(userId = id,navController = navController)
         }
 
     }

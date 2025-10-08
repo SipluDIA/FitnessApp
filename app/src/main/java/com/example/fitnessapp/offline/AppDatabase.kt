@@ -4,10 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.fitnessapp.data.model.User
+import com.example.fitnessapp.data.model.ActivityLog
 
-@Database(entities = [OfflineActivity::class], version = 1)
+@Database(
+    entities = [OfflineActivity::class, User::class, ActivityLog::class],
+    version = 2
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun offlineActivityDao(): OfflineActivityDao
+    abstract fun userDao(): UserDao
+    abstract fun activityLogDao(): ActivityLogDao
 
     companion object {
         @Volatile
@@ -19,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "fitness_offline_db"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

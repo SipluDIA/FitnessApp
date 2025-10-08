@@ -208,6 +208,17 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                     enabled = activityType != "Running"
                 ) { Text("Running") }
             }
+            Row {
+                OutlinedButton(
+                    onClick = { activityType = "Cycling" },
+                    enabled = activityType != "Cycling"
+                ) { Text("Cycling") }
+                Spacer(Modifier.width(8.dp))
+                OutlinedButton(
+                    onClick = { activityType = "Swimming" },
+                    enabled = activityType != "Swimming"
+                ) { Text("Swimming") }
+            }
             Spacer(Modifier.height(16.dp))
             Row {
                 Button(onClick = {
@@ -243,10 +254,10 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                         endTime = LocalDateTime.now()
                         // Save activity, supporting offline
                         val isOnline = try {
-                        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-                        val network = cm?.activeNetwork
-                        val capabilities = cm?.getNetworkCapabilities(network)
-                        capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+                            val network = cm?.activeNetwork
+                            val capabilities = cm?.getNetworkCapabilities(network)
+                            capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                         } catch (e: Exception) { false }
 
                         if (isOnline) {
@@ -258,6 +269,9 @@ fun ActivityScreen(navController: NavHostController, userId: Int) {
                                 endTime = formatter.format(endTime!!)
                             ) { success, message ->
                                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                if (success) {
+                                    navController.navigate("summery/$userId")
+                                }
                             }
                         } else {
                             // Save to Room for later sync
